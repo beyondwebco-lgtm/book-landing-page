@@ -102,16 +102,16 @@ export const BookSpreadViewer: React.FC = () => {
         <div
           style={{
             width: '100%',
-            maxWidth: '820px',
+            maxWidth: '760px',
             textAlign: 'center',
             zIndex: 30,
             pointerEvents: 'none',
-            padding: '12px 24px',
-            borderRadius: '20px',
-            backgroundColor: 'rgba(9, 8, 6, 0.92)',
-            border: '1px solid rgba(201, 164, 92, 0.3)',
-            boxShadow: '0 8px 32px rgba(0, 0, 0, 0.85)',
-            backdropFilter: 'blur(12px)'
+            padding: '14px 28px',
+            borderRadius: '16px',
+            backgroundColor: 'rgba(14, 12, 10, 0.92)',
+            border: '1px solid rgba(201, 164, 92, 0.22)',
+            boxShadow: '0 12px 36px rgba(0, 0, 0, 0.85)',
+            backdropFilter: 'blur(16px)'
           }}
         >
           <div
@@ -119,29 +119,30 @@ export const BookSpreadViewer: React.FC = () => {
               display: 'inline-flex',
               alignItems: 'center',
               gap: '6px',
-              padding: '3px 14px',
+              padding: '3px 12px',
               borderRadius: '9999px',
-              border: '1px solid rgba(201, 164, 92, 0.45)',
-              backgroundColor: 'rgba(201, 164, 92, 0.12)',
-              color: '#F0D18A',
-              fontSize: '11px',
+              border: '1px solid rgba(201, 164, 92, 0.3)',
+              backgroundColor: 'rgba(201, 164, 92, 0.08)',
+              color: '#C9A45C',
+              fontSize: '10px',
               fontFamily: '"Cinzel", serif',
               textTransform: 'uppercase',
-              letterSpacing: '0.15em',
-              marginBottom: '6px'
+              letterSpacing: '0.18em',
+              marginBottom: '6px',
+              fontWeight: 600
             }}
           >
-            <Sparkles style={{ width: '12px', height: '12px', color: '#ECC875' }} />
+            <Sparkles style={{ width: '11px', height: '11px', color: '#C9A45C' }} />
             <span>Interactive 3D Manuscript Turn</span>
           </div>
 
           <h2
             style={{
-              fontFamily: '"Cinzel", serif',
-              fontSize: 'clamp(1.3rem, 2.2vw, 2.0rem)',
-              fontWeight: 700,
-              color: '#FFFFFF',
-              letterSpacing: '0.04em',
+              fontFamily: '"Cormorant Garamond", Georgia, serif',
+              fontSize: 'clamp(1.5rem, 2.6vw, 2.2rem)',
+              fontWeight: 600,
+              color: '#F3EBDD',
+              lineHeight: 1.15,
               margin: '0 0 4px 0',
               textShadow: '0 2px 10px rgba(0, 0, 0, 0.9)'
             }}
@@ -153,10 +154,10 @@ export const BookSpreadViewer: React.FC = () => {
             style={{
               fontFamily: '"Cormorant Garamond", Georgia, serif',
               fontSize: '16px',
-              color: '#E8DCC4',
+              color: '#CDBF9F',
               fontStyle: 'italic',
               margin: 0,
-              textShadow: '0 1px 4px rgba(0,0,0,0.8)'
+              lineHeight: 1.4
             }}
           >
             Scroll down smoothly to fold the page across the spine and enter the next kshetra.
@@ -171,7 +172,7 @@ export const BookSpreadViewer: React.FC = () => {
             gl={{ antialias: true, powerPreference: 'high-performance' }}
           >
             <color attach="background" args={['#090806']} />
-            <ambientLight intensity={0.8} color="#F1E7D0" />
+            <ambientLight intensity={0.8} color="#F3EBDD" />
             <directionalLight
               position={[2, 5, 5]}
               intensity={2.8}
@@ -198,14 +199,14 @@ export const BookSpreadViewer: React.FC = () => {
           style={{
             display: 'flex',
             alignItems: 'center',
-            gap: '24px',
+            gap: '20px',
             zIndex: 30,
-            padding: '6px 20px',
+            padding: '6px 16px',
             borderRadius: '9999px',
-            backgroundColor: 'rgba(9, 8, 6, 0.9)',
-            border: '1px solid rgba(201, 164, 92, 0.3)',
+            backgroundColor: 'rgba(14, 12, 10, 0.92)',
+            border: '1px solid rgba(201, 164, 92, 0.22)',
             boxShadow: '0 8px 24px rgba(0, 0, 0, 0.8)',
-            backdropFilter: 'blur(10px)'
+            backdropFilter: 'blur(12px)'
           }}
         >
           <button
@@ -213,41 +214,43 @@ export const BookSpreadViewer: React.FC = () => {
             style={{
               display: 'flex',
               alignItems: 'center',
-              gap: '6px',
-              padding: '6px 14px',
-              borderRadius: '9999px',
-              border: '1px solid rgba(201, 164, 92, 0.35)',
-              backgroundColor: 'rgba(17, 16, 13, 0.9)',
-              color: '#F0D18A',
+              gap: '4px',
+              padding: '6px 12px',
+              borderRadius: '8px',
+              border: '1px solid rgba(201, 164, 92, 0.25)',
+              backgroundColor: 'rgba(14, 12, 10, 0.8)',
+              color: '#F3EBDD',
               fontSize: '11px',
-              fontFamily: '"Cinzel", serif',
+              fontFamily: '"Inter", sans-serif',
+              fontWeight: 500,
               textTransform: 'uppercase',
-              letterSpacing: '0.1em',
-              cursor: 'pointer'
+              letterSpacing: '0.06em',
+              cursor: 'pointer',
+              transition: 'all 0.2s ease'
             }}
           >
-            <ChevronLeft style={{ width: '13px', height: '13px' }} />
+            <ChevronLeft style={{ width: '13px', height: '13px', color: '#C9A45C' }} />
             <span>Previous</span>
           </button>
 
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '3px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px' }}>
             <span
               style={{
-                fontFamily: '"Cinzel", serif',
-                fontSize: '11px',
-                color: '#F0D18A',
-                fontWeight: 600,
+                fontFamily: '"Inter", sans-serif',
+                fontSize: '10px',
+                color: '#CDBF9F',
+                fontWeight: 500,
                 textTransform: 'uppercase',
-                letterSpacing: '0.15em'
+                letterSpacing: '0.08em'
               }}
             >
               Spread {currentSpreadIdx + 1} of {SPREADS_DATA.length}
             </span>
             <div
               style={{
-                width: '140px',
-                height: '3px',
-                backgroundColor: 'rgba(201, 164, 92, 0.25)',
+                width: '130px',
+                height: '2px',
+                backgroundColor: 'rgba(201, 164, 92, 0.2)',
                 borderRadius: '9999px',
                 overflow: 'hidden'
               }}
@@ -268,21 +271,23 @@ export const BookSpreadViewer: React.FC = () => {
             style={{
               display: 'flex',
               alignItems: 'center',
-              gap: '6px',
-              padding: '6px 14px',
-              borderRadius: '9999px',
-              border: '1px solid rgba(201, 164, 92, 0.35)',
-              backgroundColor: 'rgba(17, 16, 13, 0.9)',
-              color: '#F0D18A',
+              gap: '4px',
+              padding: '6px 12px',
+              borderRadius: '8px',
+              border: '1px solid rgba(201, 164, 92, 0.25)',
+              backgroundColor: 'rgba(14, 12, 10, 0.8)',
+              color: '#F3EBDD',
               fontSize: '11px',
-              fontFamily: '"Cinzel", serif',
+              fontFamily: '"Inter", sans-serif',
+              fontWeight: 500,
               textTransform: 'uppercase',
-              letterSpacing: '0.1em',
-              cursor: 'pointer'
+              letterSpacing: '0.06em',
+              cursor: 'pointer',
+              transition: 'all 0.2s ease'
             }}
           >
             <span>Next</span>
-            <ChevronRight style={{ width: '13px', height: '13px' }} />
+            <ChevronRight style={{ width: '13px', height: '13px', color: '#C9A45C' }} />
           </button>
         </div>
       </div>

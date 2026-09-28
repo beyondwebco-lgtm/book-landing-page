@@ -5,13 +5,14 @@
   --color-temple-black: #11100D;
   --color-antique-gold: #C9A45C;
   --color-burnished-gold: #8F6B32;
-  --color-warm-ivory: #F1E7D0;
-  --color-old-paper: #D8C7A5;
+  --color-warm-ivory: #F3EBDD;
+  --color-old-paper: #CDBF9F;
   --color-muted-saffron: #A76532;
   --color-deep-maroon: #351711;
 
   --font-cinzel: "Cinzel", serif;
   --font-garamond: "Cormorant Garamond", Georgia, serif;
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
 :root {
@@ -22,7 +23,7 @@ body {
   margin: 0;
   padding: 0;
   background-color: #090806;
-  color: #F1E7D0;
+  color: #F3EBDD;
   font-family: var(--font-garamond);
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;

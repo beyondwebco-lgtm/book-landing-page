@@ -28,14 +28,14 @@ export const LoadingScreen: React.FC<{ onComplete: () => void }> = ({ onComplete
         </div>
       </div>
 
-      <div className="space-y-3 mb-10">
-        <span className="text-[11px] font-cinzel text-antique-gold tracking-[0.3em] uppercase block">
+      <div className="space-y-2.5 mb-10">
+        <span className="text-[10px] font-cinzel text-antique-gold tracking-[0.25em] uppercase block font-semibold">
           ॥ तीर्थ यात्रा महात्म्यम् ॥
         </span>
-        <h1 className="font-cinzel text-3xl sm:text-5xl font-bold tracking-widest text-warm-ivory">
-          THIRTHA YATRA
+        <h1 className="font-garamond text-4xl sm:text-5xl font-bold tracking-tight text-warm-ivory">
+          Thirtha Yatra
         </h1>
-        <p className="font-cinzel text-sm sm:text-base text-antique-gold/80 tracking-widest uppercase">
+        <p className="font-garamond text-base sm:text-lg text-old-paper italic">
           Temples & Kshetras
         </p>
       </div>

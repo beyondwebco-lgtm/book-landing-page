@@ -25,15 +25,16 @@ export function App() {
           left: '50%',
           transform: 'translateX(-50%)',
           zIndex: 40,
-          backgroundColor: 'rgba(17, 16, 13, 0.85)',
-          backdropFilter: 'blur(12px)',
-          border: '1px solid rgba(201, 164, 92, 0.35)',
+          backgroundColor: 'rgba(14, 12, 10, 0.88)',
+          backdropFilter: 'blur(16px)',
+          WebkitBackdropFilter: 'blur(16px)',
+          border: '1px solid rgba(201, 164, 92, 0.22)',
           borderRadius: '9999px',
-          padding: '8px 24px',
+          padding: '6px 10px 6px 20px',
           display: 'flex',
           alignItems: 'center',
-          gap: '24px',
-          boxShadow: '0 20px 40px rgba(0, 0, 0, 0.8)'
+          gap: '20px',
+          boxShadow: '0 12px 32px -4px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(255, 255, 255, 0.03)'
         }}
       >
         <a
@@ -41,17 +42,19 @@ export function App() {
           onClick={() => soundEngine.playFlameWarmth()}
           style={{
             fontSize: '11px',
-            fontFamily: '"Cinzel", serif',
+            fontFamily: '"Inter", sans-serif',
+            fontWeight: 500,
             color: '#C9A45C',
+            letterSpacing: '0.08em',
             textTransform: 'uppercase',
-            letterSpacing: '0.15em',
             textDecoration: 'none',
             display: 'flex',
             alignItems: 'center',
-            gap: '6px'
+            gap: '6px',
+            transition: 'color 0.2s ease'
           }}
         >
-          <BookOpen style={{ width: '13px', height: '13px' }} />
+          <BookOpen style={{ width: '13px', height: '13px', opacity: 0.9 }} />
           <span>Sanctum</span>
         </a>
 
@@ -60,17 +63,19 @@ export function App() {
           onClick={() => soundEngine.playFlameWarmth()}
           style={{
             fontSize: '11px',
-            fontFamily: '"Cinzel", serif',
-            color: '#D8C7A5',
+            fontFamily: '"Inter", sans-serif',
+            fontWeight: 500,
+            color: '#CDBF9F',
+            letterSpacing: '0.08em',
             textTransform: 'uppercase',
-            letterSpacing: '0.15em',
             textDecoration: 'none',
             display: 'flex',
             alignItems: 'center',
-            gap: '6px'
+            gap: '6px',
+            transition: 'color 0.2s ease'
           }}
         >
-          <BookOpen style={{ width: '13px', height: '13px' }} />
+          <BookOpen style={{ width: '13px', height: '13px', opacity: 0.8 }} />
           <span>Manuscript</span>
         </a>
 
@@ -79,17 +84,19 @@ export function App() {
           onClick={() => soundEngine.playFlameWarmth()}
           style={{
             fontSize: '11px',
-            fontFamily: '"Cinzel", serif',
-            color: '#D8C7A5',
+            fontFamily: '"Inter", sans-serif',
+            fontWeight: 500,
+            color: '#CDBF9F',
+            letterSpacing: '0.08em',
             textTransform: 'uppercase',
-            letterSpacing: '0.15em',
             textDecoration: 'none',
             display: 'flex',
             alignItems: 'center',
-            gap: '6px'
+            gap: '6px',
+            transition: 'color 0.2s ease'
           }}
         >
-          <Compass style={{ width: '13px', height: '13px' }} />
+          <Compass style={{ width: '13px', height: '13px', opacity: 0.8 }} />
           <span>Kshetras</span>
         </a>
 
@@ -98,17 +105,19 @@ export function App() {
           onClick={() => soundEngine.playFlameWarmth()}
           style={{
             fontSize: '11px',
-            fontFamily: '"Cinzel", serif',
-            color: '#D8C7A5',
+            fontFamily: '"Inter", sans-serif',
+            fontWeight: 500,
+            color: '#CDBF9F',
+            letterSpacing: '0.08em',
             textTransform: 'uppercase',
-            letterSpacing: '0.15em',
             textDecoration: 'none',
             display: 'flex',
             alignItems: 'center',
-            gap: '6px'
+            gap: '6px',
+            transition: 'color 0.2s ease'
           }}
         >
-          <Feather style={{ width: '13px', height: '13px' }} />
+          <Feather style={{ width: '13px', height: '13px', opacity: 0.8 }} />
           <span>Author</span>
         </a>
 
@@ -118,23 +127,24 @@ export function App() {
           rel="noopener noreferrer"
           onClick={() => soundEngine.playTempleBell()}
           style={{
-            padding: '6px 16px',
+            padding: '6px 14px',
             borderRadius: '9999px',
             backgroundColor: '#C9A45C',
             color: '#090806',
             fontSize: '11px',
-            fontFamily: '"Cinzel", serif',
-            fontWeight: 'bold',
+            fontFamily: '"Inter", sans-serif',
+            fontWeight: 600,
+            letterSpacing: '0.06em',
             textTransform: 'uppercase',
-            letterSpacing: '0.1em',
             textDecoration: 'none',
             display: 'flex',
             alignItems: 'center',
             gap: '6px',
-            boxShadow: '0 2px 10px rgba(201, 164, 92, 0.3)'
+            boxShadow: '0 2px 12px rgba(201, 164, 92, 0.25)',
+            transition: 'background-color 0.2s ease, transform 0.15s ease'
           }}
         >
-          <ShoppingBag style={{ width: '13px', height: '13px' }} />
+          <ShoppingBag style={{ width: '12px', height: '12px' }} />
           <span>Buy</span>
         </a>
       </nav>

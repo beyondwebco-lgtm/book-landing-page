@@ -17,19 +17,19 @@ export const TempleMapSection: React.FC<{ onExplorePage?: (page: number) => void
   return (
     <section id="temples-section" className="relative py-28 px-4 sm:px-8 max-w-7xl mx-auto text-warm-ivory">
       {/* Background Sacred Yantra watermark */}
-      <div className="absolute inset-0 pointer-events-none flex items-center justify-center opacity-5">
-        <div className="w-[800px] h-[800px] rounded-full border border-antique-gold border-dashed animate-spin-slow" />
+      <div className="absolute inset-0 pointer-events-none flex items-center justify-center opacity-[0.03]">
+        <div className="w-[700px] h-[700px] rounded-full border border-antique-gold border-dashed" />
       </div>
 
       <div className="text-center max-w-3xl mx-auto mb-16">
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-antique-gold/30 bg-antique-gold/5 text-antique-gold text-xs uppercase tracking-widest mb-4">
-          <Compass className="w-3.5 h-3.5" />
+        <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full border border-antique-gold/25 bg-antique-gold/5 text-antique-gold text-[10px] uppercase font-cinzel tracking-[0.2em] font-semibold mb-4">
+          <Compass className="w-3 h-3" />
           <span>Interactive Pilgrimage Topography</span>
         </div>
-        <h2 className="font-cinzel text-3xl sm:text-5xl font-bold tracking-wide text-warm-ivory mb-4">
+        <h2 className="font-garamond text-3xl sm:text-5xl font-semibold tracking-tight text-warm-ivory mb-3 leading-tight">
           Sacred Temples & Kshetras
         </h2>
-        <p className="font-garamond text-lg sm:text-xl text-old-paper/80 leading-relaxed italic">
+        <p className="font-garamond text-lg sm:text-xl text-old-paper italic leading-relaxed">
           “Each kshetra documented in the guide is not merely a destination, but a consecrated portal of inner transformation.”
         </p>
       </div>
@@ -43,10 +43,10 @@ export const TempleMapSection: React.FC<{ onExplorePage?: (page: number) => void
               setActiveFilter(filter);
               soundEngine.playFlameWarmth();
             }}
-            className={`px-4 py-2 rounded-lg text-xs font-cinzel tracking-wider transition-all duration-300 ${
+            className={`px-3.5 py-1.5 rounded-lg text-xs font-sans font-medium tracking-wide transition-all duration-200 ${
               activeFilter === filter
-                ? 'bg-antique-gold text-deep-obsidian font-bold shadow-lg shadow-antique-gold/20'
-                : 'bg-temple-black/70 border border-antique-gold/20 text-old-paper/70 hover:border-antique-gold/50 hover:text-warm-ivory'
+                ? 'bg-antique-gold text-deep-obsidian font-semibold shadow-md shadow-antique-gold/20'
+                : 'bg-temple-black/80 border border-antique-gold/20 text-old-paper/80 hover:border-antique-gold/45 hover:text-warm-ivory'
             }`}
           >
             {filter}
@@ -57,9 +57,9 @@ export const TempleMapSection: React.FC<{ onExplorePage?: (page: number) => void
       {/* Main Interactive Map & Details Split Layout */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         {/* Left 7 Columns: Spatial Pilgrimage Grid & Sacred Route Node Matrix */}
-        <div className="lg:col-span-7 bg-temple-black/80 border border-antique-gold/25 rounded-2xl p-6 sm:p-8 relative backdrop-blur-md overflow-hidden shadow-2xl">
+        <div className="lg:col-span-7 bg-temple-black/85 border border-antique-gold/20 rounded-2xl p-6 sm:p-7 relative backdrop-blur-md overflow-hidden shadow-2xl">
           <div className="flex items-center justify-between mb-6 pb-4 border-b border-antique-gold/15">
-            <span className="text-xs uppercase tracking-widest text-antique-gold font-cinzel flex items-center gap-2">
+            <span className="text-[11px] uppercase tracking-[0.16em] text-antique-gold font-cinzel font-semibold flex items-center gap-2">
               <Sparkles className="w-3.5 h-3.5" />
               Verified Pilgrimage Nodes ({filteredSpots.length})
             </span>
@@ -78,10 +78,10 @@ export const TempleMapSection: React.FC<{ onExplorePage?: (page: number) => void
                     setSelectedSpot(spot);
                     soundEngine.playFlameWarmth();
                   }}
-                  className={`group relative p-4 rounded-xl border transition-all duration-300 cursor-pointer overflow-hidden ${
+                  className={`group relative p-3.5 rounded-xl border transition-all duration-200 cursor-pointer overflow-hidden ${
                     isSelected
-                      ? 'bg-gradient-to-br from-antique-gold/20 via-temple-black to-deep-obsidian border-antique-gold shadow-lg shadow-antique-gold/15 translate-y-[-2px]'
-                      : 'bg-deep-obsidian/60 border-antique-gold/15 hover:border-antique-gold/40 hover:bg-temple-black/60'
+                      ? 'bg-gradient-to-br from-antique-gold/15 via-temple-black to-deep-obsidian border-antique-gold/80 shadow-lg shadow-antique-gold/10 translate-y-[-2px]'
+                      : 'bg-deep-obsidian/60 border-antique-gold/15 hover:border-antique-gold/35 hover:bg-temple-black/70'
                   }`}
                 >
                   {/* Small temple thumbnail photo */}
@@ -93,7 +93,7 @@ export const TempleMapSection: React.FC<{ onExplorePage?: (page: number) => void
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
                     {spot.pageNumber && (
-                      <span className="absolute top-2 right-2 text-[10px] font-cinzel text-antique-gold bg-black/70 backdrop-blur-sm px-2 py-0.5 rounded border border-antique-gold/30">
+                      <span className="absolute top-2 right-2 text-[10px] font-sans font-medium text-antique-gold bg-black/80 backdrop-blur-sm px-2 py-0.5 rounded border border-antique-gold/25">
                         p. {spot.pageNumber}
                       </span>
                     )}
@@ -101,27 +101,27 @@ export const TempleMapSection: React.FC<{ onExplorePage?: (page: number) => void
 
                   <div className="flex items-start justify-between">
                     <div className="flex items-center gap-2">
-                      <div className={`w-2.5 h-2.5 rounded-full ${isSelected ? 'bg-antique-gold animate-ping' : 'bg-antique-gold/40'}`} />
-                      <h4 className="font-cinzel text-base font-semibold text-warm-ivory group-hover:text-antique-gold transition-colors">
+                      <div className={`w-2 h-2 rounded-full ${isSelected ? 'bg-antique-gold shadow-[0_0_8px_#C9A45C]' : 'bg-antique-gold/35'}`} />
+                      <h4 className="font-garamond text-lg font-semibold text-warm-ivory group-hover:text-antique-gold transition-colors">
                         {spot.name}
                       </h4>
                     </div>
                   </div>
 
-                  <p className="text-xs text-old-paper/60 font-garamond italic mt-1">
+                  <p className="text-xs text-old-paper/70 font-garamond italic mt-0.5">
                     {spot.sanskritName} • {spot.region}
                   </p>
 
-                  <p className="text-xs text-old-paper/75 font-sans mt-2 line-clamp-2">
+                  <p className="text-xs text-old-paper/85 font-sans mt-2 line-clamp-2 leading-relaxed">
                     {spot.description}
                   </p>
 
                   <div className="flex items-center justify-between mt-3 pt-2.5 border-t border-antique-gold/10">
-                    <span className="text-[10px] uppercase tracking-wider text-antique-gold/90 font-cinzel">
+                    <span className="text-[10px] uppercase tracking-wider text-antique-gold font-cinzel">
                       {spot.deity}
                     </span>
-                    <span className="text-xs text-antique-gold flex items-center gap-1 group-hover:translate-x-1 transition-transform">
-                      Inspect <ChevronRight className="w-3 h-3" />
+                    <span className="text-xs text-old-paper/75 font-sans group-hover:text-antique-gold flex items-center gap-1 group-hover:translate-x-0.5 transition-all">
+                      Inspect <ChevronRight className="w-3 h-3 text-antique-gold" />
                     </span>
                   </div>
                 </div>
@@ -131,10 +131,10 @@ export const TempleMapSection: React.FC<{ onExplorePage?: (page: number) => void
         </div>
 
         {/* Right 5 Columns: Selected Kshetra Editorial Dossier with Grand Photo */}
-        <div className="lg:col-span-5 bg-gradient-to-b from-temple-black to-deep-obsidian border border-antique-gold/30 rounded-2xl p-6 sm:p-8 backdrop-blur-md shadow-2xl relative overflow-hidden">
+        <div className="lg:col-span-5 bg-gradient-to-b from-temple-black to-deep-obsidian border border-antique-gold/25 rounded-2xl p-6 sm:p-7 backdrop-blur-md shadow-2xl relative overflow-hidden">
           
           {/* Main Selected Temple Hero Photo */}
-          <div className="w-full h-56 rounded-xl overflow-hidden mb-6 border border-antique-gold/30 relative shadow-lg">
+          <div className="w-full h-56 rounded-xl overflow-hidden mb-6 border border-antique-gold/25 relative shadow-lg">
             <img
               src={selectedSpot.imageUrl}
               alt={selectedSpot.name}
@@ -142,17 +142,17 @@ export const TempleMapSection: React.FC<{ onExplorePage?: (page: number) => void
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent" />
             <div className="absolute bottom-3 left-4">
-              <span className="inline-flex items-center gap-1.5 text-xs text-antique-gold tracking-widest font-cinzel uppercase">
-                <MapPin className="w-3.5 h-3.5" />
+              <span className="inline-flex items-center gap-1.5 text-[10px] text-antique-gold tracking-[0.16em] font-cinzel uppercase font-semibold">
+                <MapPin className="w-3 h-3" />
                 <span>{selectedSpot.region}</span>
               </span>
-              <h3 className="font-cinzel text-2xl font-bold text-warm-ivory">
+              <h3 className="font-garamond text-2xl sm:text-3xl font-bold text-warm-ivory">
                 {selectedSpot.name}
               </h3>
             </div>
           </div>
 
-          <p className="font-garamond text-base text-antique-gold/90 italic mb-4">
+          <p className="font-garamond text-base text-antique-gold italic mb-4">
             {selectedSpot.sanskritName}
           </p>
 
@@ -164,19 +164,19 @@ export const TempleMapSection: React.FC<{ onExplorePage?: (page: number) => void
             </div>
           )}
 
-          <div className="space-y-3.5 mb-6 text-sm sm:text-base font-garamond text-old-paper/90 leading-relaxed">
+          <div className="space-y-4 mb-6 text-sm sm:text-base font-garamond text-old-paper leading-relaxed">
             <div>
-              <span className="font-cinzel text-xs text-antique-gold uppercase tracking-wider block mb-0.5">
-                Spiritual Essence:
+              <span className="font-cinzel text-[10px] text-antique-gold uppercase tracking-[0.18em] block mb-1 font-semibold">
+                Spiritual Essence
               </span>
-              <p>{selectedSpot.significance}</p>
+              <p className="text-warm-ivory/95">{selectedSpot.significance}</p>
             </div>
 
             <div>
-              <span className="font-cinzel text-xs text-antique-gold uppercase tracking-wider block mb-0.5">
-                Presiding Sanctum Deity:
+              <span className="font-cinzel text-[10px] text-antique-gold uppercase tracking-[0.18em] block mb-1 font-semibold">
+                Presiding Sanctum Deity
               </span>
-              <p className="font-cinzel text-warm-ivory">{selectedSpot.deity}</p>
+              <p className="font-garamond text-lg font-semibold text-warm-ivory">{selectedSpot.deity}</p>
             </div>
           </div>
 
@@ -193,7 +193,7 @@ export const TempleMapSection: React.FC<{ onExplorePage?: (page: number) => void
                   bookElem.scrollIntoView({ behavior: 'smooth' });
                 }
               }}
-              className="flex-1 py-3 px-4 rounded-xl bg-antique-gold hover:bg-[#D4AF37] text-deep-obsidian font-cinzel text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 transition-transform duration-300 hover:scale-[1.02] shadow-lg shadow-antique-gold/20"
+              className="flex-1 py-3 px-4 rounded-lg bg-antique-gold hover:bg-[#D4AF37] text-deep-obsidian font-sans text-xs font-semibold uppercase tracking-wider flex items-center justify-center gap-2 transition-transform duration-200 hover:scale-[1.01] shadow-lg shadow-antique-gold/15"
             >
               <BookOpen className="w-4 h-4" />
               <span>Read in 3D Book (p. {selectedSpot.pageNumber})</span>

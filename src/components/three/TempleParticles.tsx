@@ -2,7 +2,7 @@ import React, { useMemo, useRef } from 'react';
 import * as THREE from 'three';
 import { useFrame } from '@react-three/fiber';
 
-export const TempleParticles: React.FC<{ count?: number }> = ({ count = 350 }) => {
+export const TempleParticles: React.FC<{ count?: number }> = ({ count = 160 }) => {
   const pointsRef = useRef<THREE.Points>(null);
 
   const positions = useMemo(() => {
@@ -26,9 +26,9 @@ export const TempleParticles: React.FC<{ count?: number }> = ({ count = 350 }) =
 
     for (let i = 0; i < count; i++) {
       // Gentle ascending incense and thermal drift
-      array[i * 3 + 1] += 0.003 * Math.sin(time + i);
-      array[i * 3] += Math.sin(time * 0.5 + i * 0.2) * 0.002;
-      array[i * 3 + 2] += Math.cos(time * 0.4 + i * 0.3) * 0.002;
+      array[i * 3 + 1] += 0.002 * Math.sin(time + i);
+      array[i * 3] += Math.sin(time * 0.5 + i * 0.2) * 0.0015;
+      array[i * 3 + 2] += Math.cos(time * 0.4 + i * 0.3) * 0.0015;
 
       // Wrap particles around chamber boundaries
       if (array[i * 3 + 1] > 4.5) {
@@ -48,10 +48,10 @@ export const TempleParticles: React.FC<{ count?: number }> = ({ count = 350 }) =
         />
       </bufferGeometry>
       <pointsMaterial
-        size={0.065}
+        size={0.045}
         color="#F0D080"
         transparent
-        opacity={0.65}
+        opacity={0.35}
         blending={THREE.AdditiveBlending}
         depthWrite={false}
       />

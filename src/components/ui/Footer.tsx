@@ -8,16 +8,16 @@ export const Footer: React.FC = () => {
   };
 
   return (
-    <footer className="bg-deep-obsidian border-t border-antique-gold/20 py-12 px-6 sm:px-12 text-warm-ivory">
+    <footer className="bg-deep-obsidian border-t border-antique-gold/15 py-12 px-6 sm:px-12 text-warm-ivory">
       <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
         <div className="text-center md:text-left">
-          <h4 className="font-cinzel text-lg font-bold text-warm-ivory tracking-wider">
-            THIRTHA YATRA GUIDE
+          <h4 className="font-garamond text-xl font-bold text-warm-ivory tracking-wide">
+            Thirtha Yatra Guide
           </h4>
-          <p className="font-garamond text-xs text-antique-gold/90 italic">
+          <p className="font-garamond text-sm text-antique-gold italic mt-0.5">
             Temples & Kshetras — by {BOOK_METADATA.author}
           </p>
-          <p className="text-[11px] text-old-paper/40 font-sans mt-2">
+          <p className="text-[11px] text-old-paper/50 font-sans mt-2">
             © {new Date().getFullYear()} Ramesh Gangashetty. All sacred rights reserved.
           </p>
         </div>
@@ -27,7 +27,7 @@ export const Footer: React.FC = () => {
             href={BOOK_METADATA.amazonUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="px-4 py-2 rounded-full bg-antique-gold/15 hover:bg-antique-gold border border-antique-gold/40 text-antique-gold hover:text-deep-obsidian font-cinzel text-xs uppercase tracking-wider flex items-center gap-2 transition-colors"
+            className="px-4 py-2 rounded-lg bg-antique-gold/10 hover:bg-antique-gold border border-antique-gold/30 text-antique-gold hover:text-deep-obsidian font-sans text-xs font-medium uppercase tracking-wider flex items-center gap-2 transition-all duration-200"
           >
             <ShoppingBag className="w-3.5 h-3.5" />
             <span>Order on Amazon</span>
@@ -35,7 +35,7 @@ export const Footer: React.FC = () => {
 
           <button
             onClick={scrollToTop}
-            className="p-2.5 rounded-full border border-antique-gold/30 hover:border-antique-gold text-antique-gold hover:bg-antique-gold/10 transition-colors"
+            className="p-2.5 rounded-lg border border-antique-gold/25 hover:border-antique-gold text-antique-gold hover:bg-antique-gold/10 transition-all duration-200"
             title="Return to Sanctum"
           >
             <ArrowUp className="w-4 h-4" />
