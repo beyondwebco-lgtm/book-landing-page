@@ -1,0 +1,59 @@
+@import "tailwindcss";
+
+@theme {
+  --color-deep-obsidian: #090806;
+  --color-temple-black: #11100D;
+  --color-antique-gold: #C9A45C;
+  --color-burnished-gold: #8F6B32;
+  --color-warm-ivory: #F1E7D0;
+  --color-old-paper: #D8C7A5;
+  --color-muted-saffron: #A76532;
+  --color-deep-maroon: #351711;
+
+  --font-cinzel: "Cinzel", serif;
+  --font-garamond: "Cormorant Garamond", Georgia, serif;
+}
+
+:root {
+  color-scheme: dark;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #090806;
+  color: #F1E7D0;
+  font-family: var(--font-garamond);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Custom scrollbar matching temple antique gold palette */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #090806;
+}
+::-webkit-scrollbar-thumb {
+  background: #C9A45C;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #E5C37A;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
