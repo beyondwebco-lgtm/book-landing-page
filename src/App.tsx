@@ -17,7 +17,7 @@ export function App() {
     <div className="min-h-screen bg-deep-obsidian text-warm-ivory selection:bg-antique-gold selection:text-deep-obsidian">
       {isLoading && <LoadingScreen onComplete={() => setIsLoading(false)} />}
 
-      {/* FLOATING SANCTUARY NAVIGATION */}
+      {/* FLOATING SANCTUARY NAVIGATION (ANCIENT TEMPLE STONE & BRONZE PLAQUE) */}
       <nav
         style={{
           position: 'fixed',
@@ -25,16 +25,15 @@ export function App() {
           left: '50%',
           transform: 'translateX(-50%)',
           zIndex: 40,
-          backgroundColor: 'rgba(14, 12, 10, 0.88)',
-          backdropFilter: 'blur(16px)',
-          WebkitBackdropFilter: 'blur(16px)',
-          border: '1px solid rgba(201, 164, 92, 0.22)',
-          borderRadius: '9999px',
-          padding: '6px 10px 6px 20px',
+          backgroundColor: '#15120F',
+          backgroundImage: 'linear-gradient(180deg, rgba(33, 26, 20, 0.95) 0%, rgba(17, 14, 11, 0.98) 100%)',
+          border: '1px solid rgba(201, 164, 92, 0.28)',
+          borderRadius: '10px',
+          padding: '6px 8px 6px 18px',
           display: 'flex',
           alignItems: 'center',
-          gap: '20px',
-          boxShadow: '0 12px 32px -4px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(255, 255, 255, 0.03)'
+          gap: '18px',
+          boxShadow: '0 16px 36px -6px rgba(0, 0, 0, 0.9), inset 0 1px 0 rgba(201, 164, 92, 0.15)'
         }}
       >
         <a
@@ -54,7 +53,7 @@ export function App() {
             transition: 'color 0.2s ease'
           }}
         >
-          <BookOpen style={{ width: '13px', height: '13px', opacity: 0.9 }} />
+          <BookOpen style={{ width: '13px', height: '13px', color: '#C9A45C' }} />
           <span>Sanctum</span>
         </a>
 
@@ -65,7 +64,7 @@ export function App() {
             fontSize: '11px',
             fontFamily: '"Inter", sans-serif',
             fontWeight: 500,
-            color: '#CDBF9F',
+            color: '#D6C29C',
             letterSpacing: '0.08em',
             textTransform: 'uppercase',
             textDecoration: 'none',
@@ -75,7 +74,7 @@ export function App() {
             transition: 'color 0.2s ease'
           }}
         >
-          <BookOpen style={{ width: '13px', height: '13px', opacity: 0.8 }} />
+          <BookOpen style={{ width: '13px', height: '13px', opacity: 0.75 }} />
           <span>Manuscript</span>
         </a>
 
@@ -86,7 +85,7 @@ export function App() {
             fontSize: '11px',
             fontFamily: '"Inter", sans-serif',
             fontWeight: 500,
-            color: '#CDBF9F',
+            color: '#D6C29C',
             letterSpacing: '0.08em',
             textTransform: 'uppercase',
             textDecoration: 'none',
@@ -96,7 +95,7 @@ export function App() {
             transition: 'color 0.2s ease'
           }}
         >
-          <Compass style={{ width: '13px', height: '13px', opacity: 0.8 }} />
+          <Compass style={{ width: '13px', height: '13px', opacity: 0.75 }} />
           <span>Kshetras</span>
         </a>
 
@@ -107,7 +106,7 @@ export function App() {
             fontSize: '11px',
             fontFamily: '"Inter", sans-serif',
             fontWeight: 500,
-            color: '#CDBF9F',
+            color: '#D6C29C',
             letterSpacing: '0.08em',
             textTransform: 'uppercase',
             textDecoration: 'none',
@@ -117,7 +116,7 @@ export function App() {
             transition: 'color 0.2s ease'
           }}
         >
-          <Feather style={{ width: '13px', height: '13px', opacity: 0.8 }} />
+          <Feather style={{ width: '13px', height: '13px', opacity: 0.75 }} />
           <span>Author</span>
         </a>
 
@@ -128,9 +127,10 @@ export function App() {
           onClick={() => soundEngine.playTempleBell()}
           style={{
             padding: '6px 14px',
-            borderRadius: '9999px',
+            borderRadius: '6px',
             backgroundColor: '#C9A45C',
-            color: '#090806',
+            backgroundImage: 'linear-gradient(180deg, #D4AF37 0%, #B89047 100%)',
+            color: '#0A0806',
             fontSize: '11px',
             fontFamily: '"Inter", sans-serif',
             fontWeight: 600,
@@ -140,8 +140,8 @@ export function App() {
             display: 'flex',
             alignItems: 'center',
             gap: '6px',
-            boxShadow: '0 2px 12px rgba(201, 164, 92, 0.25)',
-            transition: 'background-color 0.2s ease, transform 0.15s ease'
+            boxShadow: '0 2px 10px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.25)',
+            transition: 'all 0.2s ease'
           }}
         >
           <ShoppingBag style={{ width: '12px', height: '12px' }} />

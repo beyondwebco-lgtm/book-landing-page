@@ -34,25 +34,33 @@ export const BookSpreadViewer: React.FC = () => {
     setSpreadTextures(textures);
   }, []);
 
-  // Track scroll inside the dedicated physical page turn track
+  // Track scroll inside the dedicated physical page turn track with rAF throttling
   useEffect(() => {
+    let ticking = false;
     const handleScroll = () => {
-      if (!containerRef.current) return;
-      const rect = containerRef.current.getBoundingClientRect();
-      const trackHeight = containerRef.current.offsetHeight - window.innerHeight;
-      if (trackHeight <= 0) return;
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          if (containerRef.current) {
+            const rect = containerRef.current.getBoundingClientRect();
+            const trackHeight = containerRef.current.offsetHeight - window.innerHeight;
+            if (trackHeight > 0) {
+              const relativeScroll = -rect.top;
+              const totalProgress = Math.min(1, Math.max(0, relativeScroll / trackHeight));
 
-      const relativeScroll = -rect.top;
-      const totalProgress = Math.min(1, Math.max(0, relativeScroll / trackHeight));
+              const totalSpreads = SPREADS_DATA.length;
+              const scaledProgress = totalProgress * (totalSpreads - 1);
+              const spreadIdx = Math.min(totalSpreads - 2, Math.floor(scaledProgress));
+              const rawTurnProgress = scaledProgress - spreadIdx;
+              const smoothedProgress = Math.min(1, Math.max(0, rawTurnProgress));
 
-      const totalSpreads = SPREADS_DATA.length;
-      const scaledProgress = totalProgress * (totalSpreads - 1);
-      const spreadIdx = Math.min(totalSpreads - 2, Math.floor(scaledProgress));
-      const rawTurnProgress = scaledProgress - spreadIdx;
-      const smoothedProgress = Math.min(1, Math.max(0, rawTurnProgress));
-
-      setCurrentSpreadIdx(spreadIdx);
-      setPageTurnProgress(smoothedProgress);
+              setCurrentSpreadIdx(spreadIdx);
+              setPageTurnProgress(smoothedProgress);
+            }
+          }
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -98,19 +106,20 @@ export const BookSpreadViewer: React.FC = () => {
           overflow: 'hidden'
         }}
       >
-        {/* Crisp, High-Contrast Header Bar (No overlap with 3D book) */}
+        {/* Crisp, High-Contrast Ancient Manuscript Archive Plaque */}
         <div
           style={{
             width: '100%',
-            maxWidth: '760px',
+            maxWidth: '740px',
             textAlign: 'center',
             zIndex: 30,
             pointerEvents: 'none',
             padding: '14px 28px',
-            borderRadius: '16px',
-            backgroundColor: 'rgba(14, 12, 10, 0.92)',
-            border: '1px solid rgba(201, 164, 92, 0.22)',
-            boxShadow: '0 12px 36px rgba(0, 0, 0, 0.85)',
+            borderRadius: '12px',
+            backgroundColor: '#15120F',
+            backgroundImage: 'linear-gradient(180deg, rgba(33, 26, 20, 0.96) 0%, rgba(17, 14, 11, 0.98) 100%)',
+            border: '1px solid rgba(201, 164, 92, 0.28)',
+            boxShadow: '0 16px 40px rgba(0, 0, 0, 0.9), inset 0 1px 0 rgba(201, 164, 92, 0.15)',
             backdropFilter: 'blur(16px)'
           }}
         >
@@ -120,7 +129,7 @@ export const BookSpreadViewer: React.FC = () => {
               alignItems: 'center',
               gap: '6px',
               padding: '3px 12px',
-              borderRadius: '9999px',
+              borderRadius: '4px',
               border: '1px solid rgba(201, 164, 92, 0.3)',
               backgroundColor: 'rgba(201, 164, 92, 0.08)',
               color: '#C9A45C',
@@ -133,7 +142,7 @@ export const BookSpreadViewer: React.FC = () => {
             }}
           >
             <Sparkles style={{ width: '11px', height: '11px', color: '#C9A45C' }} />
-            <span>Interactive 3D Manuscript Turn</span>
+            <span>Inner Sanctum • Manuscript Archive</span>
           </div>
 
           <h2
@@ -141,10 +150,10 @@ export const BookSpreadViewer: React.FC = () => {
               fontFamily: '"Cormorant Garamond", Georgia, serif',
               fontSize: 'clamp(1.5rem, 2.6vw, 2.2rem)',
               fontWeight: 600,
-              color: '#F3EBDD',
+              color: '#F2E7D0',
               lineHeight: 1.15,
               margin: '0 0 4px 0',
-              textShadow: '0 2px 10px rgba(0, 0, 0, 0.9)'
+              textShadow: '0 2px 12px rgba(0, 0, 0, 0.95)'
             }}
           >
             Turn The Sacred Pages
@@ -154,13 +163,13 @@ export const BookSpreadViewer: React.FC = () => {
             style={{
               fontFamily: '"Cormorant Garamond", Georgia, serif',
               fontSize: '16px',
-              color: '#CDBF9F',
+              color: '#D6C29C',
               fontStyle: 'italic',
               margin: 0,
               lineHeight: 1.4
             }}
           >
-            Scroll down smoothly to fold the page across the spine and enter the next kshetra.
+            Scroll down smoothly to fold the parchment across the spine and enter the next kshetra.
           </p>
         </div>
 
@@ -168,19 +177,20 @@ export const BookSpreadViewer: React.FC = () => {
         <div style={{ width: '100%', flex: 1, position: 'relative', zIndex: 10, margin: '8px 0' }}>
           <Canvas
             shadows
+            dpr={[1, 1.5]}
             camera={{ position: [0, -0.05, 4.4], fov: 48 }}
             gl={{ antialias: true, powerPreference: 'high-performance' }}
           >
-            <color attach="background" args={['#090806']} />
-            <ambientLight intensity={0.8} color="#F3EBDD" />
+            <color attach="background" args={['#0A0806']} />
+            <ambientLight intensity={0.75} color="#F2E7D0" />
             <directionalLight
               position={[2, 5, 5]}
-              intensity={2.8}
-              color="#FFF0D4"
+              intensity={2.6}
+              color="#FFE4B5"
               castShadow
               shadow-mapSize={[1024, 1024]}
             />
-            <pointLight position={[-3, -1, 3]} intensity={1.4} color="#E5A93C" distance={8} />
+            <pointLight position={[-3, -1, 3]} intensity={1.5} color="#E5A83B" distance={8} />
 
             {spreadTextures.length > 0 && (
               <PhysicalPageTurnBook
@@ -199,13 +209,14 @@ export const BookSpreadViewer: React.FC = () => {
           style={{
             display: 'flex',
             alignItems: 'center',
-            gap: '20px',
+            gap: '18px',
             zIndex: 30,
-            padding: '6px 16px',
-            borderRadius: '9999px',
-            backgroundColor: 'rgba(14, 12, 10, 0.92)',
-            border: '1px solid rgba(201, 164, 92, 0.22)',
-            boxShadow: '0 8px 24px rgba(0, 0, 0, 0.8)',
+            padding: '6px 14px',
+            borderRadius: '8px',
+            backgroundColor: '#15120F',
+            backgroundImage: 'linear-gradient(180deg, rgba(33, 26, 20, 0.95) 0%, rgba(17, 14, 11, 0.98) 100%)',
+            border: '1px solid rgba(201, 164, 92, 0.25)',
+            boxShadow: '0 12px 28px rgba(0, 0, 0, 0.85), inset 0 1px 0 rgba(201, 164, 92, 0.12)',
             backdropFilter: 'blur(12px)'
           }}
         >
@@ -215,11 +226,11 @@ export const BookSpreadViewer: React.FC = () => {
               display: 'flex',
               alignItems: 'center',
               gap: '4px',
-              padding: '6px 12px',
-              borderRadius: '8px',
+              padding: '5px 12px',
+              borderRadius: '5px',
               border: '1px solid rgba(201, 164, 92, 0.25)',
-              backgroundColor: 'rgba(14, 12, 10, 0.8)',
-              color: '#F3EBDD',
+              backgroundColor: 'rgba(21, 18, 15, 0.85)',
+              color: '#F2E7D0',
               fontSize: '11px',
               fontFamily: '"Inter", sans-serif',
               fontWeight: 500,
@@ -233,12 +244,12 @@ export const BookSpreadViewer: React.FC = () => {
             <span>Previous</span>
           </button>
 
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '3px' }}>
             <span
               style={{
                 fontFamily: '"Inter", sans-serif',
                 fontSize: '10px',
-                color: '#CDBF9F',
+                color: '#D6C29C',
                 fontWeight: 500,
                 textTransform: 'uppercase',
                 letterSpacing: '0.08em'
@@ -248,10 +259,10 @@ export const BookSpreadViewer: React.FC = () => {
             </span>
             <div
               style={{
-                width: '130px',
+                width: '120px',
                 height: '2px',
                 backgroundColor: 'rgba(201, 164, 92, 0.2)',
-                borderRadius: '9999px',
+                borderRadius: '2px',
                 overflow: 'hidden'
               }}
             >
@@ -272,11 +283,11 @@ export const BookSpreadViewer: React.FC = () => {
               display: 'flex',
               alignItems: 'center',
               gap: '4px',
-              padding: '6px 12px',
-              borderRadius: '8px',
+              padding: '5px 12px',
+              borderRadius: '5px',
               border: '1px solid rgba(201, 164, 92, 0.25)',
-              backgroundColor: 'rgba(14, 12, 10, 0.8)',
-              color: '#F3EBDD',
+              backgroundColor: 'rgba(21, 18, 15, 0.85)',
+              color: '#F2E7D0',
               fontSize: '11px',
               fontFamily: '"Inter", sans-serif',
               fontWeight: 500,

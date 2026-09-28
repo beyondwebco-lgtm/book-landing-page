@@ -1,13 +1,16 @@
 @import "tailwindcss";
 
 @theme {
-  --color-deep-obsidian: #090806;
-  --color-temple-black: #11100D;
+  --color-deep-obsidian: #0A0806;
+  --color-stone-surface: #211A14;
+  --color-dark-stone: #15120F;
+  --color-temple-black: #110E0B;
+  --color-warm-sandstone: #6F4828;
+  --color-burnished-bronze: #7A542B;
   --color-antique-gold: #C9A45C;
-  --color-burnished-gold: #8F6B32;
-  --color-warm-ivory: #F3EBDD;
-  --color-old-paper: #CDBF9F;
-  --color-muted-saffron: #A76532;
+  --color-lamp-amber: #E5A83B;
+  --color-warm-ivory: #F2E7D0;
+  --color-aged-parchment: #D6C29C;
   --color-deep-maroon: #351711;
 
   --font-cinzel: "Cinzel", serif;
@@ -22,11 +25,15 @@
 body {
   margin: 0;
   padding: 0;
-  background-color: #090806;
-  color: #F3EBDD;
+  background-color: #0A0806;
+  color: #F2E7D0;
   font-family: var(--font-garamond);
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
+  background-image: 
+    radial-gradient(ellipse at 50% 0%, rgba(111, 72, 40, 0.08) 0%, transparent 60%),
+    radial-gradient(ellipse at 20% 50%, rgba(33, 26, 20, 0.4) 0%, transparent 70%),
+    radial-gradient(ellipse at 80% 80%, rgba(53, 23, 17, 0.15) 0%, transparent 60%);
 }
 
 /* Custom scrollbar matching temple antique gold palette */

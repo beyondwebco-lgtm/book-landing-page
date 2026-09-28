@@ -37,26 +37,34 @@ export const BookHeroExperience: React.FC = () => {
     setSpreadTextures(spreads);
   }, []);
 
-  // Track scroll within the hero pin track
+  // Track scroll within the hero pin track with requestAnimationFrame
   useEffect(() => {
+    let ticking = false;
     const handleScroll = () => {
-      if (!containerRef.current) return;
-      const rect = containerRef.current.getBoundingClientRect();
-      const totalHeight = containerRef.current.offsetHeight - window.innerHeight;
-      if (totalHeight <= 0) return;
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          if (containerRef.current) {
+            const rect = containerRef.current.getBoundingClientRect();
+            const totalHeight = containerRef.current.offsetHeight - window.innerHeight;
+            if (totalHeight > 0) {
+              const currentScroll = -rect.top;
+              const progress = Math.min(1, Math.max(0, currentScroll / totalHeight));
+              setScrollProgress(progress);
 
-      const currentScroll = -rect.top;
-      const progress = Math.min(1, Math.max(0, currentScroll / totalHeight));
-      setScrollProgress(progress);
-
-      // Determine active spread from scroll stages (0.45 to 0.9)
-      if (progress > 0.45) {
-        const spreadProgress = (progress - 0.45) / 0.45;
-        const newSpread = Math.min(3, Math.floor(spreadProgress * 4));
-        if (newSpread !== activeSpread) {
-          setActiveSpread(newSpread);
-          soundEngine.playPageTurn();
-        }
+              // Determine active spread from scroll stages (0.45 to 0.9)
+              if (progress > 0.45) {
+                const spreadProgress = (progress - 0.45) / 0.45;
+                const newSpread = Math.min(3, Math.floor(spreadProgress * 4));
+                if (newSpread !== activeSpread) {
+                  setActiveSpread(newSpread);
+                  soundEngine.playPageTurn();
+                }
+              }
+            }
+          }
+          ticking = false;
+        });
+        ticking = true;
       }
     };
 
@@ -81,6 +89,7 @@ export const BookHeroExperience: React.FC = () => {
         <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>
           <Canvas
             shadows
+            dpr={[1, 1.5]}
             camera={{ position: [0, cameraY, cameraZ], fov: 42 }}
             gl={{ antialias: true, alpha: false, powerPreference: 'high-performance' }}
           >
@@ -102,7 +111,7 @@ export const BookHeroExperience: React.FC = () => {
 
             {/* 3D SCENE ASSETS */}
             <TempleEnvironment scrollProgress={scrollProgress} />
-            <TempleParticles count={300} />
+            <TempleParticles count={140} />
 
             {coverTexture && spreadTextures.length > 0 && (
               <group position={[0, 0, 0]}>
@@ -126,14 +135,14 @@ export const BookHeroExperience: React.FC = () => {
           </Canvas>
         </div>
 
-        {/* Subtle Cinematic Radial Glow behind the Book */}
+        {/* Subtle Cinematic Oil-Lamp & Temple Mandapa Radial Glow */}
         <div
           style={{
             position: 'absolute',
             inset: 0,
             pointerEvents: 'none',
             zIndex: 1,
-            background: 'radial-gradient(ellipse at 50% 45%, rgba(167, 101, 50, 0.16), transparent 48%)'
+            background: 'radial-gradient(ellipse at 50% 48%, rgba(229, 168, 59, 0.12) 0%, rgba(111, 72, 40, 0.08) 35%, transparent 65%)'
           }}
         />
 
@@ -165,15 +174,16 @@ export const BookHeroExperience: React.FC = () => {
                 style={{
                   width: '28px',
                   height: '28px',
-                  borderRadius: '9999px',
-                  border: '1px solid rgba(201, 164, 92, 0.4)',
+                  borderRadius: '6px',
+                  border: '1px solid rgba(201, 164, 92, 0.35)',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  backgroundColor: 'rgba(201, 164, 92, 0.08)'
+                  backgroundColor: 'rgba(33, 26, 20, 0.85)',
+                  boxShadow: 'inset 0 1px 0 rgba(201, 164, 92, 0.2)'
                 }}
               >
-                <div style={{ width: '6px', height: '6px', borderRadius: '9999px', backgroundColor: '#C9A45C' }} />
+                <div style={{ width: '6px', height: '6px', borderRadius: '2px', backgroundColor: '#C9A45C' }} />
               </div>
               <div>
                 <span
@@ -194,7 +204,7 @@ export const BookHeroExperience: React.FC = () => {
                     fontFamily: '"Inter", sans-serif',
                     fontSize: '10px',
                     letterSpacing: '0.04em',
-                    color: 'rgba(205, 191, 159, 0.65)'
+                    color: 'rgba(214, 194, 156, 0.65)'
                   }}
                 >
                   Temples & Kshetras
@@ -203,17 +213,16 @@ export const BookHeroExperience: React.FC = () => {
             </div>
 
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-              {/* Sound Toggle Button */}
+              {/* Sound Toggle Button (Stone/Bronze Pill) */}
               <button
                 onClick={toggleAudio}
                 style={{
                   padding: '6px 12px',
-                  borderRadius: '8px',
-                  border: '1px solid rgba(201, 164, 92, 0.22)',
-                  backgroundColor: 'rgba(14, 12, 10, 0.75)',
-                  backdropFilter: 'blur(10px)',
-                  WebkitBackdropFilter: 'blur(10px)',
-                  color: '#CDBF9F',
+                  borderRadius: '6px',
+                  border: '1px solid rgba(201, 164, 92, 0.24)',
+                  backgroundColor: 'rgba(21, 18, 15, 0.88)',
+                  backdropFilter: 'blur(8px)',
+                  color: '#D6C29C',
                   fontSize: '11px',
                   fontFamily: '"Inter", sans-serif',
                   fontWeight: 500,
@@ -221,12 +230,13 @@ export const BookHeroExperience: React.FC = () => {
                   alignItems: 'center',
                   gap: '6px',
                   cursor: 'pointer',
-                  transition: 'all 0.2s ease'
+                  transition: 'all 0.2s ease',
+                  boxShadow: '0 4px 12px rgba(0,0,0,0.5)'
                 }}
                 title="Toggle Temple Audio"
               >
-                {isMuted ? <VolumeX style={{ width: '13px', height: '13px', color: '#8F6B32' }} /> : <Volume2 style={{ width: '13px', height: '13px', color: '#C9A45C' }} />}
-                <span>{isMuted ? 'Muted' : 'Audio On'}</span>
+                {isMuted ? <VolumeX style={{ width: '13px', height: '13px', color: '#7A542B' }} /> : <Volume2 style={{ width: '13px', height: '13px', color: '#E5A83B' }} />}
+                <span>{isMuted ? 'Muted' : 'Sanctum Audio'}</span>
               </button>
             </div>
           </div>
@@ -244,16 +254,16 @@ export const BookHeroExperience: React.FC = () => {
             {scrollProgress < 0.25 ? (
               <div
                 style={{
-                  background: 'radial-gradient(ellipse at center, rgba(9, 8, 6, 0.85) 0%, rgba(9, 8, 6, 0.3) 70%, transparent 100%)',
+                  background: 'radial-gradient(ellipse at center, rgba(10, 8, 6, 0.88) 0%, rgba(10, 8, 6, 0.4) 70%, transparent 100%)',
                   padding: '24px 20px',
-                  borderRadius: '24px'
+                  borderRadius: '20px'
                 }}
               >
                 <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', marginBottom: '14px' }}>
                   <span
                     style={{
                       fontFamily: '"Cinzel", serif',
-                      fontSize: '11px',
+                      fontSize: '10px',
                       letterSpacing: '0.22em',
                       textTransform: 'uppercase',
                       color: '#C9A45C',
@@ -270,9 +280,9 @@ export const BookHeroExperience: React.FC = () => {
                     fontSize: 'clamp(2.8rem, 6vw, 4.8rem)',
                     fontWeight: 700,
                     lineHeight: 1.05,
-                    color: '#F3EBDD',
+                    color: '#F2E7D0',
                     margin: '0 0 8px 0',
-                    textShadow: '0 4px 24px rgba(0, 0, 0, 0.9)'
+                    textShadow: '0 4px 28px rgba(0, 0, 0, 0.95)'
                   }}
                 >
                   Thirtha Yatra
@@ -283,7 +293,7 @@ export const BookHeroExperience: React.FC = () => {
                     fontFamily: '"Cormorant Garamond", Georgia, serif',
                     fontSize: 'clamp(1.25rem, 2.5vw, 1.6rem)',
                     fontWeight: 500,
-                    color: '#CDBF9F',
+                    color: '#D6C29C',
                     margin: '0 0 16px 0',
                     lineHeight: 1.3
                   }}
@@ -295,7 +305,7 @@ export const BookHeroExperience: React.FC = () => {
                   style={{
                     fontFamily: '"Cormorant Garamond", Georgia, serif',
                     fontSize: '18px',
-                    color: '#F3EBDD',
+                    color: '#F2E7D0',
                     fontStyle: 'italic',
                     maxWidth: '540px',
                     margin: '0 auto 28px auto',
@@ -314,10 +324,10 @@ export const BookHeroExperience: React.FC = () => {
                     }}
                     style={{
                       padding: '11px 24px',
-                      borderRadius: '8px',
+                      borderRadius: '6px',
                       border: '1px solid rgba(201, 164, 92, 0.45)',
-                      backgroundColor: 'rgba(14, 12, 10, 0.7)',
-                      color: '#F3EBDD',
+                      backgroundColor: 'rgba(21, 18, 15, 0.85)',
+                      color: '#F2E7D0',
                       fontFamily: '"Inter", sans-serif',
                       fontSize: '12px',
                       fontWeight: 500,
@@ -325,7 +335,8 @@ export const BookHeroExperience: React.FC = () => {
                       textTransform: 'uppercase',
                       cursor: 'pointer',
                       backdropFilter: 'blur(8px)',
-                      transition: 'all 0.25s ease'
+                      transition: 'all 0.25s ease',
+                      boxShadow: '0 4px 16px rgba(0, 0, 0, 0.6)'
                     }}
                   >
                     Enter The Journey
@@ -338,16 +349,17 @@ export const BookHeroExperience: React.FC = () => {
                     onClick={() => soundEngine.playTempleBell()}
                     style={{
                       padding: '11px 26px',
-                      borderRadius: '8px',
+                      borderRadius: '6px',
                       backgroundColor: '#C9A45C',
-                      color: '#090806',
+                      backgroundImage: 'linear-gradient(180deg, #D4AF37 0%, #B89047 100%)',
+                      color: '#0A0806',
                       fontFamily: '"Inter", sans-serif',
                       fontSize: '12px',
                       fontWeight: 600,
                       letterSpacing: '0.06em',
                       textTransform: 'uppercase',
                       textDecoration: 'none',
-                      boxShadow: '0 4px 20px rgba(201, 164, 92, 0.25)',
+                      boxShadow: '0 4px 24px rgba(201, 164, 92, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.25)',
                       transition: 'all 0.25s ease'
                     }}
                   >
@@ -358,34 +370,35 @@ export const BookHeroExperience: React.FC = () => {
             ) : scrollProgress < 0.65 ? (
               <div
                 style={{
-                  backgroundColor: 'rgba(14, 12, 10, 0.88)',
+                  backgroundColor: 'rgba(21, 18, 15, 0.92)',
+                  backgroundImage: 'linear-gradient(180deg, rgba(33, 26, 20, 0.95) 0%, rgba(17, 14, 11, 0.98) 100%)',
                   padding: '22px 30px',
-                  borderRadius: '16px',
-                  border: '1px solid rgba(201, 164, 92, 0.22)',
+                  borderRadius: '12px',
+                  border: '1px solid rgba(201, 164, 92, 0.28)',
                   backdropFilter: 'blur(16px)',
-                  boxShadow: '0 20px 48px rgba(0, 0, 0, 0.8)'
+                  boxShadow: '0 24px 54px rgba(0, 0, 0, 0.85), inset 0 1px 0 rgba(201, 164, 92, 0.15)'
                 }}
               >
                 <span
                   style={{
-                    fontSize: '11px',
+                    fontSize: '10px',
                     fontFamily: '"Cinzel", serif',
                     color: '#C9A45C',
                     textTransform: 'uppercase',
-                    letterSpacing: '0.18em',
+                    letterSpacing: '0.2em',
                     display: 'block',
                     marginBottom: '6px',
                     fontWeight: 600
                   }}
                 >
-                  Manuscript Unfolding
+                  Mandapa Passage • Stage II
                 </span>
                 <h2
                   style={{
                     fontFamily: '"Cormorant Garamond", Georgia, serif',
                     fontSize: '28px',
                     fontWeight: 600,
-                    color: '#F3EBDD',
+                    color: '#F2E7D0',
                     margin: '0 0 8px 0',
                     lineHeight: 1.2
                   }}
@@ -396,7 +409,7 @@ export const BookHeroExperience: React.FC = () => {
                   style={{
                     fontFamily: '"Cormorant Garamond", Georgia, serif',
                     fontSize: '18px',
-                    color: '#CDBF9F',
+                    color: '#D6C29C',
                     fontStyle: 'italic',
                     margin: 0,
                     lineHeight: 1.5
@@ -408,45 +421,46 @@ export const BookHeroExperience: React.FC = () => {
             ) : (
               <div
                 style={{
-                  backgroundColor: 'rgba(14, 12, 10, 0.9)',
+                  backgroundColor: 'rgba(21, 18, 15, 0.92)',
+                  backgroundImage: 'linear-gradient(180deg, rgba(33, 26, 20, 0.95) 0%, rgba(17, 14, 11, 0.98) 100%)',
                   padding: '22px 30px',
-                  borderRadius: '16px',
-                  border: '1px solid rgba(201, 164, 92, 0.25)',
+                  borderRadius: '12px',
+                  border: '1px solid rgba(201, 164, 92, 0.28)',
                   backdropFilter: 'blur(16px)',
-                  boxShadow: '0 20px 48px rgba(0, 0, 0, 0.8)'
+                  boxShadow: '0 24px 54px rgba(0, 0, 0, 0.85), inset 0 1px 0 rgba(201, 164, 92, 0.15)'
                 }}
               >
                 <span
                   style={{
-                    fontSize: '11px',
+                    fontSize: '10px',
                     fontFamily: '"Cinzel", serif',
                     color: '#C9A45C',
                     textTransform: 'uppercase',
-                    letterSpacing: '0.18em',
+                    letterSpacing: '0.2em',
                     display: 'block',
                     marginBottom: '6px',
                     fontWeight: 600
                   }}
                 >
-                  Active Spread {activeSpread + 1} of 4
+                  Sanctum Topography • Spread {activeSpread + 1} of 4
                 </span>
                 <h2
                   style={{
                     fontFamily: '"Cormorant Garamond", Georgia, serif',
                     fontSize: '28px',
                     fontWeight: 600,
-                    color: '#F3EBDD',
+                    color: '#F2E7D0',
                     margin: '0 0 8px 0',
                     lineHeight: 1.2
                   }}
                 >
-                  Sanctuary Topography & Mantras
+                  Consecrated Mantras & Topography
                 </h2>
                 <p
                   style={{
                     fontFamily: '"Cormorant Garamond", Georgia, serif',
                     fontSize: '18px',
-                    color: '#CDBF9F',
+                    color: '#D6C29C',
                     fontStyle: 'italic',
                     margin: 0,
                     lineHeight: 1.5
@@ -458,7 +472,7 @@ export const BookHeroExperience: React.FC = () => {
             )}
           </div>
 
-          {/* Bottom Scroll Indicator */}
+          {/* Bottom Scroll Indicator (Temple Stone Plaque) */}
           <div
             style={{
               display: 'flex',
@@ -469,7 +483,7 @@ export const BookHeroExperience: React.FC = () => {
             }}
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <span style={{ fontFamily: '"Inter", sans-serif', fontSize: '11px', fontWeight: 500, color: '#C9A45C' }}>
+              <span style={{ fontFamily: '"Inter", sans-serif', fontSize: '11px', fontWeight: 600, color: '#C9A45C' }}>
                 0{Math.min(4, Math.floor(scrollProgress * 4) + 1)}
               </span>
               <div
@@ -477,7 +491,7 @@ export const BookHeroExperience: React.FC = () => {
                   width: '90px',
                   height: '2px',
                   backgroundColor: 'rgba(201, 164, 92, 0.2)',
-                  borderRadius: '9999px',
+                  borderRadius: '2px',
                   overflow: 'hidden'
                 }}
               >
@@ -490,7 +504,7 @@ export const BookHeroExperience: React.FC = () => {
                   }}
                 />
               </div>
-              <span style={{ fontFamily: '"Inter", sans-serif', fontSize: '11px', fontWeight: 500, color: 'rgba(205, 191, 159, 0.45)' }}>
+              <span style={{ fontFamily: '"Inter", sans-serif', fontSize: '11px', fontWeight: 500, color: 'rgba(214, 194, 156, 0.45)' }}>
                 04
               </span>
             </div>
@@ -500,15 +514,19 @@ export const BookHeroExperience: React.FC = () => {
                 display: 'flex',
                 alignItems: 'center',
                 gap: '6px',
-                color: '#CDBF9F',
+                color: '#D6C29C',
                 fontSize: '11px',
                 fontFamily: '"Inter", sans-serif',
                 fontWeight: 500,
                 textTransform: 'uppercase',
-                letterSpacing: '0.08em'
+                letterSpacing: '0.08em',
+                backgroundColor: 'rgba(21, 18, 15, 0.7)',
+                padding: '4px 10px',
+                borderRadius: '6px',
+                border: '1px solid rgba(201, 164, 92, 0.2)'
               }}
             >
-              <span>Scroll Pilgrimage</span>
+              <span>Mandapa Pilgrimage</span>
               <ChevronDown style={{ width: '13px', height: '13px', color: '#C9A45C' }} />
             </div>
           </div>

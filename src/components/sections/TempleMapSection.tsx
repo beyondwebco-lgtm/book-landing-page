@@ -16,25 +16,26 @@ export const TempleMapSection: React.FC<{ onExplorePage?: (page: number) => void
 
   return (
     <section id="temples-section" className="relative py-28 px-4 sm:px-8 max-w-7xl mx-auto text-warm-ivory">
-      {/* Background Sacred Yantra watermark */}
-      <div className="absolute inset-0 pointer-events-none flex items-center justify-center opacity-[0.03]">
-        <div className="w-[700px] h-[700px] rounded-full border border-antique-gold border-dashed" />
+      {/* Background Sacred Dravidian Mandapa Geometry */}
+      <div className="absolute inset-0 pointer-events-none flex items-center justify-center opacity-[0.035]">
+        <div className="w-[740px] h-[740px] border border-antique-gold" style={{ transform: 'rotate(45deg)' }} />
+        <div className="absolute w-[680px] h-[680px] rounded-full border border-antique-gold border-dashed" />
       </div>
 
       <div className="text-center max-w-3xl mx-auto mb-16">
-        <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full border border-antique-gold/25 bg-antique-gold/5 text-antique-gold text-[10px] uppercase font-cinzel tracking-[0.2em] font-semibold mb-4">
-          <Compass className="w-3 h-3" />
-          <span>Interactive Pilgrimage Topography</span>
+        <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-md border border-antique-gold/30 bg-[#211A14]/80 text-antique-gold text-[10px] uppercase font-cinzel tracking-[0.2em] font-semibold mb-4 shadow-md">
+          <Compass className="w-3 h-3 text-antique-gold" />
+          <span>Sacred Kshetra Topography • Mandapa IV</span>
         </div>
         <h2 className="font-garamond text-3xl sm:text-5xl font-semibold tracking-tight text-warm-ivory mb-3 leading-tight">
           Sacred Temples & Kshetras
         </h2>
-        <p className="font-garamond text-lg sm:text-xl text-old-paper italic leading-relaxed">
+        <p className="font-garamond text-lg sm:text-xl text-aged-parchment italic leading-relaxed">
           “Each kshetra documented in the guide is not merely a destination, but a consecrated portal of inner transformation.”
         </p>
       </div>
 
-      {/* Filter Tabs */}
+      {/* Filter Tabs (Dark Stone & Bronze Chips) */}
       <div className="flex flex-wrap justify-center gap-2 mb-12">
         {filters.map((filter) => (
           <button
@@ -43,10 +44,10 @@ export const TempleMapSection: React.FC<{ onExplorePage?: (page: number) => void
               setActiveFilter(filter);
               soundEngine.playFlameWarmth();
             }}
-            className={`px-3.5 py-1.5 rounded-lg text-xs font-sans font-medium tracking-wide transition-all duration-200 ${
+            className={`px-3.5 py-1.5 rounded-md text-xs font-sans font-medium tracking-wide transition-all duration-200 ${
               activeFilter === filter
-                ? 'bg-antique-gold text-deep-obsidian font-semibold shadow-md shadow-antique-gold/20'
-                : 'bg-temple-black/80 border border-antique-gold/20 text-old-paper/80 hover:border-antique-gold/45 hover:text-warm-ivory'
+                ? 'bg-[#C9A45C] text-[#0A0806] font-semibold shadow-md shadow-antique-gold/20'
+                : 'bg-[#15120F] border border-antique-gold/20 text-[#D6C29C] hover:border-antique-gold/45 hover:text-[#F2E7D0]'
             }`}
           >
             {filter}
@@ -56,14 +57,14 @@ export const TempleMapSection: React.FC<{ onExplorePage?: (page: number) => void
 
       {/* Main Interactive Map & Details Split Layout */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-        {/* Left 7 Columns: Spatial Pilgrimage Grid & Sacred Route Node Matrix */}
-        <div className="lg:col-span-7 bg-temple-black/85 border border-antique-gold/20 rounded-2xl p-6 sm:p-7 relative backdrop-blur-md overflow-hidden shadow-2xl">
+        {/* Left 7 Columns: Spatial Pilgrimage Grid (Ancient Dark Stone Mandapa Matrix) */}
+        <div className="lg:col-span-7 bg-[#15120F] border border-antique-gold/25 rounded-xl p-6 sm:p-7 relative backdrop-blur-md overflow-hidden shadow-2xl">
           <div className="flex items-center justify-between mb-6 pb-4 border-b border-antique-gold/15">
             <span className="text-[11px] uppercase tracking-[0.16em] text-antique-gold font-cinzel font-semibold flex items-center gap-2">
               <Sparkles className="w-3.5 h-3.5" />
               Verified Pilgrimage Nodes ({filteredSpots.length})
             </span>
-            <span className="text-xs text-old-paper/50 font-sans">
+            <span className="text-xs text-aged-parchment/60 font-sans">
               Select node to inspect guide notes
             </span>
           </div>
@@ -78,22 +79,24 @@ export const TempleMapSection: React.FC<{ onExplorePage?: (page: number) => void
                     setSelectedSpot(spot);
                     soundEngine.playFlameWarmth();
                   }}
-                  className={`group relative p-3.5 rounded-xl border transition-all duration-200 cursor-pointer overflow-hidden ${
+                  className={`group relative p-3.5 rounded-lg border transition-all duration-200 cursor-pointer overflow-hidden ${
                     isSelected
-                      ? 'bg-gradient-to-br from-antique-gold/15 via-temple-black to-deep-obsidian border-antique-gold/80 shadow-lg shadow-antique-gold/10 translate-y-[-2px]'
-                      : 'bg-deep-obsidian/60 border-antique-gold/15 hover:border-antique-gold/35 hover:bg-temple-black/70'
+                      ? 'bg-gradient-to-br from-[#2B1F16] via-[#1A1410] to-[#110E0B] border-antique-gold shadow-lg shadow-antique-gold/15 translate-y-[-2px]'
+                      : 'bg-[#0E0C0A] border-antique-gold/15 hover:border-antique-gold/35 hover:bg-[#1A1410]'
                   }`}
                 >
-                  {/* Small temple thumbnail photo */}
-                  <div className="w-full h-32 rounded-lg overflow-hidden mb-3 border border-antique-gold/20 relative">
+                  {/* Temple thumbnail photo */}
+                  <div className="w-full h-32 rounded-md overflow-hidden mb-3 border border-antique-gold/20 relative">
                     <img
                       src={spot.imageUrl}
                       alt={spot.name}
+                      loading="lazy"
+                      decoding="async"
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent" />
                     {spot.pageNumber && (
-                      <span className="absolute top-2 right-2 text-[10px] font-sans font-medium text-antique-gold bg-black/80 backdrop-blur-sm px-2 py-0.5 rounded border border-antique-gold/25">
+                      <span className="absolute top-2 right-2 text-[10px] font-sans font-medium text-antique-gold bg-[#0A0806]/90 backdrop-blur-sm px-2 py-0.5 rounded border border-antique-gold/25">
                         p. {spot.pageNumber}
                       </span>
                     )}
@@ -101,18 +104,18 @@ export const TempleMapSection: React.FC<{ onExplorePage?: (page: number) => void
 
                   <div className="flex items-start justify-between">
                     <div className="flex items-center gap-2">
-                      <div className={`w-2 h-2 rounded-full ${isSelected ? 'bg-antique-gold shadow-[0_0_8px_#C9A45C]' : 'bg-antique-gold/35'}`} />
+                      <div className={`w-2 h-2 rounded-full ${isSelected ? 'bg-antique-gold shadow-[0_0_8px_#E5A83B]' : 'bg-antique-gold/35'}`} />
                       <h4 className="font-garamond text-lg font-semibold text-warm-ivory group-hover:text-antique-gold transition-colors">
                         {spot.name}
                       </h4>
                     </div>
                   </div>
 
-                  <p className="text-xs text-old-paper/70 font-garamond italic mt-0.5">
+                  <p className="text-xs text-aged-parchment/70 font-garamond italic mt-0.5">
                     {spot.sanskritName} • {spot.region}
                   </p>
 
-                  <p className="text-xs text-old-paper/85 font-sans mt-2 line-clamp-2 leading-relaxed">
+                  <p className="text-xs text-aged-parchment/85 font-sans mt-2 line-clamp-2 leading-relaxed">
                     {spot.description}
                   </p>
 
@@ -120,7 +123,7 @@ export const TempleMapSection: React.FC<{ onExplorePage?: (page: number) => void
                     <span className="text-[10px] uppercase tracking-wider text-antique-gold font-cinzel">
                       {spot.deity}
                     </span>
-                    <span className="text-xs text-old-paper/75 font-sans group-hover:text-antique-gold flex items-center gap-1 group-hover:translate-x-0.5 transition-all">
+                    <span className="text-xs text-aged-parchment/75 font-sans group-hover:text-antique-gold flex items-center gap-1 group-hover:translate-x-0.5 transition-all">
                       Inspect <ChevronRight className="w-3 h-3 text-antique-gold" />
                     </span>
                   </div>
@@ -131,16 +134,18 @@ export const TempleMapSection: React.FC<{ onExplorePage?: (page: number) => void
         </div>
 
         {/* Right 5 Columns: Selected Kshetra Editorial Dossier with Grand Photo */}
-        <div className="lg:col-span-5 bg-gradient-to-b from-temple-black to-deep-obsidian border border-antique-gold/25 rounded-2xl p-6 sm:p-7 backdrop-blur-md shadow-2xl relative overflow-hidden">
+        <div className="lg:col-span-5 bg-gradient-to-b from-[#1E1712] via-[#15120F] to-[#0D0B09] border border-antique-gold/30 rounded-xl p-6 sm:p-7 backdrop-blur-md shadow-2xl relative overflow-hidden">
           
           {/* Main Selected Temple Hero Photo */}
-          <div className="w-full h-56 rounded-xl overflow-hidden mb-6 border border-antique-gold/25 relative shadow-lg">
+          <div className="w-full h-56 rounded-lg overflow-hidden mb-6 border border-antique-gold/30 relative shadow-lg">
             <img
               src={selectedSpot.imageUrl}
               alt={selectedSpot.name}
+              loading="lazy"
+              decoding="async"
               className="w-full h-full object-cover"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0A0806] via-black/30 to-transparent" />
             <div className="absolute bottom-3 left-4">
               <span className="inline-flex items-center gap-1.5 text-[10px] text-antique-gold tracking-[0.16em] font-cinzel uppercase font-semibold">
                 <MapPin className="w-3 h-3" />
@@ -157,14 +162,14 @@ export const TempleMapSection: React.FC<{ onExplorePage?: (page: number) => void
           </p>
 
           {selectedSpot.verseSnippet && (
-            <div className="p-3.5 rounded-lg bg-antique-gold/10 border-l-2 border-antique-gold mb-5">
+            <div className="p-3.5 rounded-md bg-[#211A14] border-l-2 border-antique-gold mb-5 shadow-inner">
               <p className="font-garamond text-base text-warm-ivory italic text-center">
                 “{selectedSpot.verseSnippet}”
               </p>
             </div>
           )}
 
-          <div className="space-y-4 mb-6 text-sm sm:text-base font-garamond text-old-paper leading-relaxed">
+          <div className="space-y-4 mb-6 text-sm sm:text-base font-garamond text-aged-parchment leading-relaxed">
             <div>
               <span className="font-cinzel text-[10px] text-antique-gold uppercase tracking-[0.18em] block mb-1 font-semibold">
                 Spiritual Essence
@@ -193,7 +198,7 @@ export const TempleMapSection: React.FC<{ onExplorePage?: (page: number) => void
                   bookElem.scrollIntoView({ behavior: 'smooth' });
                 }
               }}
-              className="flex-1 py-3 px-4 rounded-lg bg-antique-gold hover:bg-[#D4AF37] text-deep-obsidian font-sans text-xs font-semibold uppercase tracking-wider flex items-center justify-center gap-2 transition-transform duration-200 hover:scale-[1.01] shadow-lg shadow-antique-gold/15"
+              className="flex-1 py-3 px-4 rounded-md bg-antique-gold hover:bg-[#D4AF37] text-[#0A0806] font-sans text-xs font-semibold uppercase tracking-wider flex items-center justify-center gap-2 transition-transform duration-200 hover:scale-[1.01] shadow-lg shadow-antique-gold/15"
             >
               <BookOpen className="w-4 h-4" />
               <span>Read in 3D Book (p. {selectedSpot.pageNumber})</span>
