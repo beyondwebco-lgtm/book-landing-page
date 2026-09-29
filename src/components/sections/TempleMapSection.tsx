@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { TEMPLE_MAP_SPOTS, type TempleSpot } from '../../lib/bookData';
 import { soundEngine } from '../../lib/soundEngine';
-import { MapPin, Compass, BookOpen, Sparkles, ChevronRight } from 'lucide-react';
+import { MapPin, Compass, BookOpen, Sparkles, ChevronRight, ArrowUp } from 'lucide-react';
 
 export const TempleMapSection: React.FC<{ onExplorePage?: (page: number) => void }> = ({ onExplorePage }) => {
   const [selectedSpot, setSelectedSpot] = useState<TempleSpot>(TEMPLE_MAP_SPOTS[0]);
   const [activeFilter, setActiveFilter] = useState<string>('All');
+  const dossierRef = useRef<HTMLDivElement>(null);
+  const gridTopRef = useRef<HTMLDivElement>(null);
 
   const filters = ['All', 'South Indian', 'Jyotirlinga', 'Chardham', 'Divya Desam', 'Ganga Ghats'];
 
@@ -14,29 +16,39 @@ export const TempleMapSection: React.FC<{ onExplorePage?: (page: number) => void
     return spot.tags.includes(activeFilter);
   });
 
+  const handleSpotSelect = (spot: TempleSpot) => {
+    setSelectedSpot(spot);
+    soundEngine.playFlameWarmth();
+    if (window.innerWidth < 1024 && dossierRef.current) {
+      setTimeout(() => {
+        dossierRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 50);
+    }
+  };
+
   return (
-    <section id="temples-section" className="relative py-28 px-4 sm:px-8 max-w-7xl mx-auto text-warm-ivory">
+    <section id="temples-section" className="relative py-20 sm:py-28 px-4 sm:px-8 max-w-7xl mx-auto text-warm-ivory overflow-hidden">
       {/* Background Sacred Dravidian Mandapa Geometry */}
-      <div className="absolute inset-0 pointer-events-none flex items-center justify-center opacity-[0.035]">
+      <div className="absolute inset-0 pointer-events-none flex items-center justify-center opacity-[0.035] overflow-hidden max-w-full">
         <div className="w-[740px] h-[740px] border border-antique-gold" style={{ transform: 'rotate(45deg)' }} />
         <div className="absolute w-[680px] h-[680px] rounded-full border border-antique-gold border-dashed" />
       </div>
 
-      <div className="text-center max-w-3xl mx-auto mb-16">
-        <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-md border border-antique-gold/30 bg-[#211A14]/80 text-antique-gold text-[10px] uppercase font-cinzel tracking-[0.2em] font-semibold mb-4 shadow-md">
-          <Compass className="w-3 h-3 text-antique-gold" />
-          <span>Sacred Kshetra Topography • Mandapa IV</span>
+      <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-16">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-md border border-antique-gold/30 bg-[#211A14]/80 text-antique-gold text-[10px] uppercase font-cinzel tracking-[0.14em] sm:tracking-[0.2em] font-semibold mb-3 sm:mb-4 shadow-md max-w-full">
+          <Compass className="w-3 h-3 text-antique-gold shrink-0" />
+          <span className="truncate">Sacred Kshetra Topography • Mandapa IV</span>
         </div>
         <h2 className="font-garamond text-3xl sm:text-5xl font-semibold tracking-tight text-warm-ivory mb-3 leading-tight">
           Sacred Temples & Kshetras
         </h2>
-        <p className="font-garamond text-lg sm:text-xl text-aged-parchment italic leading-relaxed">
+        <p className="font-garamond text-base sm:text-xl text-aged-parchment italic leading-relaxed">
           “Each kshetra documented in the guide is not merely a destination, but a consecrated portal of inner transformation.”
         </p>
       </div>
 
-      {/* Filter Tabs (Dark Stone & Bronze Chips) */}
-      <div className="flex flex-wrap justify-center gap-2 mb-12">
+      {/* Filter Tabs (Dark Stone & Bronze Chips - Swipeable on mobile) */}
+      <div className="flex overflow-x-auto no-scrollbar sm:flex-wrap sm:justify-center gap-2 mb-8 sm:mb-12 pb-2 px-1 max-w-full">
         {filters.map((filter) => (
           <button
             key={filter}
@@ -44,7 +56,7 @@ export const TempleMapSection: React.FC<{ onExplorePage?: (page: number) => void
               setActiveFilter(filter);
               soundEngine.playFlameWarmth();
             }}
-            className={`px-3.5 py-1.5 rounded-md text-xs font-sans font-medium tracking-wide transition-all duration-200 ${
+            className={`px-3 sm:px-3.5 py-1.5 rounded-md text-xs font-sans font-medium tracking-wide transition-all duration-200 whitespace-nowrap shrink-0 min-h-[36px] ${
               activeFilter === filter
                 ? 'bg-[#C9A45C] text-[#0A0806] font-semibold shadow-md shadow-antique-gold/20'
                 : 'bg-[#15120F] border border-antique-gold/20 text-[#D6C29C] hover:border-antique-gold/45 hover:text-[#F2E7D0]'
@@ -56,7 +68,7 @@ export const TempleMapSection: React.FC<{ onExplorePage?: (page: number) => void
       </div>
 
       {/* Main Interactive Map & Details Split Layout */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      <div ref={gridTopRef} className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         {/* Left 7 Columns: Spatial Pilgrimage Grid (Ancient Dark Stone Mandapa Matrix) */}
         <div className="lg:col-span-7 bg-[#15120F] border border-antique-gold/25 rounded-xl p-6 sm:p-7 relative backdrop-blur-md overflow-hidden shadow-2xl">
           <div className="flex items-center justify-between mb-6 pb-4 border-b border-antique-gold/15">
@@ -75,10 +87,7 @@ export const TempleMapSection: React.FC<{ onExplorePage?: (page: number) => void
               return (
                 <div
                   key={spot.id}
-                  onClick={() => {
-                    setSelectedSpot(spot);
-                    soundEngine.playFlameWarmth();
-                  }}
+                  onClick={() => handleSpotSelect(spot)}
                   className={`group relative p-3.5 rounded-lg border transition-all duration-200 cursor-pointer overflow-hidden ${
                     isSelected
                       ? 'bg-gradient-to-br from-[#2B1F16] via-[#1A1410] to-[#110E0B] border-antique-gold shadow-lg shadow-antique-gold/15 translate-y-[-2px]'
@@ -134,10 +143,21 @@ export const TempleMapSection: React.FC<{ onExplorePage?: (page: number) => void
         </div>
 
         {/* Right 5 Columns: Selected Kshetra Editorial Dossier with Grand Photo */}
-        <div className="lg:col-span-5 bg-gradient-to-b from-[#1E1712] via-[#15120F] to-[#0D0B09] border border-antique-gold/30 rounded-xl p-6 sm:p-7 backdrop-blur-md shadow-2xl relative overflow-hidden">
+        <div ref={dossierRef} className="lg:col-span-5 bg-gradient-to-b from-[#1E1712] via-[#15120F] to-[#0D0B09] border border-antique-gold/30 rounded-xl p-5 sm:p-7 backdrop-blur-md shadow-2xl relative overflow-hidden">
+          
+          {/* Mobile Back Button to top of grid */}
+          <button
+            onClick={() => {
+              gridTopRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }}
+            className="lg:hidden w-full mb-4 py-2 px-3 rounded-md bg-[#211A14] border border-antique-gold/25 text-antique-gold text-xs font-sans font-medium flex items-center justify-center gap-1.5"
+          >
+            <ArrowUp className="w-3.5 h-3.5" />
+            <span>Back to Kshetra Grid</span>
+          </button>
           
           {/* Main Selected Temple Hero Photo */}
-          <div className="w-full h-56 rounded-lg overflow-hidden mb-6 border border-antique-gold/30 relative shadow-lg">
+          <div className="w-full h-48 sm:h-56 rounded-lg overflow-hidden mb-5 sm:mb-6 border border-antique-gold/30 relative shadow-lg">
             <img
               src={selectedSpot.imageUrl}
               alt={selectedSpot.name}

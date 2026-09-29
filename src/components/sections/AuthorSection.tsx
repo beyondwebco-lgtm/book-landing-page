@@ -4,16 +4,16 @@ import { User, Feather, Heart, Sparkles, BookOpen } from 'lucide-react';
 
 export const AuthorSection: React.FC = () => {
   return (
-    <section id="author-section" className="relative py-28 px-4 sm:px-8 max-w-6xl mx-auto text-warm-ivory">
+    <section id="author-section" className="relative py-18 sm:py-28 px-4 sm:px-8 max-w-6xl mx-auto text-warm-ivory overflow-hidden">
       {/* Background Sacred Geometric Mandala */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-2xl aspect-square rounded-full border border-antique-gold/10 opacity-[0.15] pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-2xl aspect-square rounded-full border border-antique-gold/10 opacity-[0.15] pointer-events-none overflow-hidden" />
 
-      <div className="text-center max-w-2xl mx-auto mb-16">
-        <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-md border border-antique-gold/30 bg-[#211A14]/80 text-antique-gold text-[10px] uppercase font-cinzel tracking-[0.2em] font-semibold mb-3 shadow-md">
-          <Feather className="w-3 h-3 text-antique-gold" />
-          <span>The Scholar & Devotee • Mandapa V</span>
+      <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-16">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-md border border-antique-gold/30 bg-[#211A14]/80 text-antique-gold text-[10px] uppercase font-cinzel tracking-[0.14em] sm:tracking-[0.2em] font-semibold mb-3 shadow-md max-w-full">
+          <Feather className="w-3 h-3 text-antique-gold shrink-0" />
+          <span className="truncate">The Scholar & Devotee • Mandapa V</span>
         </div>
-        <h2 className="font-garamond text-3xl sm:text-5xl font-semibold text-warm-ivory mb-3 leading-tight">
+        <h2 className="font-garamond text-3xl sm:text-5xl font-semibold text-warm-ivory mb-2 sm:mb-3 leading-tight">
           Meet The Author
         </h2>
         <p className="font-garamond text-base sm:text-lg text-aged-parchment italic">
@@ -21,16 +21,16 @@ export const AuthorSection: React.FC = () => {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-12 gap-10 items-center bg-[#15120F] border border-antique-gold/25 rounded-2xl p-8 sm:p-12 shadow-2xl relative overflow-hidden backdrop-blur-md">
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-8 sm:gap-10 items-center bg-[#15120F] border border-antique-gold/25 rounded-2xl p-5 sm:p-12 shadow-2xl relative overflow-hidden backdrop-blur-md">
         
         {/* Left 5 cols: Respectful Author Portrait Presentation */}
         <div className="md:col-span-5 flex flex-col items-center">
-          <div className="relative group">
+          <div className="relative group w-full flex justify-center">
             {/* Subtle warm amber diya aura ring */}
             <div className="absolute -inset-1 bg-gradient-to-tr from-[#E5A83B]/30 via-[#7A542B]/30 to-[#351711]/20 rounded-xl opacity-60 blur-sm group-hover:opacity-85 transition-opacity" />
             
             {/* Portrait Frame (Carved Stone Pillar Style) */}
-            <div className="relative w-64 h-80 sm:w-72 sm:h-92 rounded-xl bg-[#1D1712] border border-antique-gold/35 flex flex-col items-center justify-center p-6 text-center shadow-2xl overflow-hidden">
+            <div className="relative w-60 h-76 sm:w-72 sm:h-92 rounded-xl bg-[#1D1712] border border-antique-gold/35 flex flex-col items-center justify-center p-5 sm:p-6 text-center shadow-2xl overflow-hidden">
               <div className="w-20 h-20 rounded-md bg-[#2B1F16] border border-antique-gold/30 flex items-center justify-center mb-5 shadow-inner">
                 <User className="w-10 h-10 text-antique-gold" />
               </div>
