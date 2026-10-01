@@ -13,13 +13,13 @@ export const GalleryPreviewSection: React.FC<GalleryPreviewSectionProps> = ({
   onOpenLightbox,
 }) => {
   return (
-    <section id="gallery-preview" className="relative py-24 px-4 sm:px-8 max-w-7xl mx-auto text-warm-ivory overflow-hidden">
+    <section id="gallery-preview" className="relative py-10 sm:py-24 px-4 sm:px-8 max-w-7xl mx-auto text-warm-ivory overflow-hidden">
       {/* Background Sacred Geometric Mandala Watermark */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-3xl aspect-square rounded-full border border-antique-gold/10 opacity-15 pointer-events-none overflow-hidden" />
 
       {/* Section Header */}
-      <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
-        <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-md border border-antique-gold/30 bg-[#211A14]/80 text-antique-gold text-[10px] uppercase font-cinzel tracking-[0.14em] sm:tracking-[0.2em] font-semibold mb-3 sm:mb-4 shadow-md max-w-full">
+      <div className="text-center max-w-3xl mx-auto mb-6 sm:mb-14">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-md border border-antique-gold/30 bg-[#211A14]/80 text-antique-gold text-[10px] uppercase font-cinzel tracking-[0.14em] sm:tracking-[0.2em] font-semibold mb-2.5 sm:mb-4 shadow-md max-w-full">
           <Camera className="w-3 h-3 text-antique-gold shrink-0" />
           <span className="truncate">Visual Chronicle • Mandapa IV-B</span>
         </div>
@@ -32,7 +32,7 @@ export const GalleryPreviewSection: React.FC<GalleryPreviewSectionProps> = ({
       </div>
 
       {/* Curated 8-Photo Editorial Grid (2 columns on mobile, 4 on desktop) */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 mb-10 sm:mb-14">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-6 mb-6 sm:mb-14">
         {PREVIEW_GALLERY_ITEMS.map((item) => (
           <div
             key={item.id}
@@ -45,7 +45,7 @@ export const GalleryPreviewSection: React.FC<GalleryPreviewSectionProps> = ({
             {/* Image Container */}
             <div className="relative aspect-[4/3] w-full overflow-hidden bg-[#0A0806]">
               <img
-                src={item.imageUrl}
+                src={item.thumbnailUrl || item.imageUrl}
                 alt={item.title}
                 loading="lazy"
                 decoding="async"

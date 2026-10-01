@@ -80,7 +80,7 @@ export const FullGalleryView: React.FC<FullGalleryViewProps> = ({
       </header>
 
       {/* 2. EDITORIAL EXHIBITION MASTHEAD */}
-      <section className="pt-8 sm:pt-16 pb-8 sm:pb-12 px-4 sm:px-8 max-w-4xl mx-auto text-center">
+      <section className="pt-6 sm:pt-16 pb-5 sm:pb-12 px-4 sm:px-8 max-w-4xl mx-auto text-center">
         <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-md border border-[#C9A45C]/50 bg-[#FFFFFF] text-[#8C6430] text-[10px] uppercase font-cinzel tracking-[0.2em] font-semibold mb-4 sm:mb-5 shadow-xs">
           <BookOpen className="w-3 h-3 text-[#8C6430]" />
           <span>The Photographic Folio • Curated Archive</span>
@@ -98,7 +98,7 @@ export const FullGalleryView: React.FC<FullGalleryViewProps> = ({
       </section>
 
       {/* 3. CATEGORY FILTER TABS (Swipeable on mobile) */}
-      <section className="px-4 sm:px-8 max-w-7xl mx-auto mb-8 sm:mb-12">
+      <section className="px-4 sm:px-8 max-w-7xl mx-auto mb-5 sm:mb-12">
         <div className="flex overflow-x-auto no-scrollbar sm:flex-wrap sm:justify-center gap-2 sm:gap-3 pb-2 px-1 max-w-full">
           {GALLERY_CATEGORIES.map((cat) => {
             const isActive = activeCategory === cat.id;
@@ -127,8 +127,8 @@ export const FullGalleryView: React.FC<FullGalleryViewProps> = ({
       </section>
 
       {/* 4. HERITAGE ARCHIVAL MASONRY / GRID */}
-      <main className="px-4 sm:px-8 max-w-7xl mx-auto pb-24">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-10">
+      <main className="px-4 sm:px-8 max-w-7xl mx-auto pb-12 sm:pb-24">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-10">
           {filteredItems.map((item, idx) => (
             <article
               key={item.id}
@@ -139,11 +139,11 @@ export const FullGalleryView: React.FC<FullGalleryViewProps> = ({
               <div className="relative w-full overflow-hidden bg-[#EFE9DE] p-2.5 sm:p-3 pb-0">
                 <div className="relative overflow-hidden rounded-lg">
                   <img
-                    src={item.imageUrl}
+                    src={item.thumbnailUrl || item.imageUrl}
                     alt={item.title}
                     loading="lazy"
                     decoding="async"
-                    className="w-full h-56 sm:h-72 object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+                    className="w-full h-48 sm:h-72 object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.03]"
                   />
 
                   {/* Plate label badge */}
@@ -159,7 +159,7 @@ export const FullGalleryView: React.FC<FullGalleryViewProps> = ({
               </div>
 
               {/* Archival Museum Metadata Plate */}
-              <div className="p-5 sm:p-6 flex-1 flex flex-col justify-between">
+              <div className="p-4 sm:p-6 flex-1 flex flex-col justify-between">
                 <div>
                   <div className="flex items-center justify-between text-[10px] font-cinzel uppercase tracking-[0.18em] text-[#8C6430] font-semibold mb-1.5">
                     <span>{item.category}</span>
@@ -198,7 +198,7 @@ export const FullGalleryView: React.FC<FullGalleryViewProps> = ({
       </main>
 
       {/* 5. ELEGANT CLOSING HERO STRIP */}
-      <footer className="bg-[#15120F] text-[#F2E7D0] border-t border-[#C9A45C]/30 py-16 px-4 sm:px-8 text-center">
+      <footer className="bg-[#15120F] text-[#F2E7D0] border-t border-[#C9A45C]/30 py-10 sm:py-16 px-4 sm:px-8 text-center">
         <div className="max-w-2xl mx-auto space-y-5">
           <div className="font-cinzel text-xs uppercase tracking-[0.24em] text-[#C9A45C]">
             Thirtha Yatra Guide • By {BOOK_METADATA.author}

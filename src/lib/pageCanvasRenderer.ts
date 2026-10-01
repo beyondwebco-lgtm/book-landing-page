@@ -1,19 +1,56 @@
-import type { BookSpread } from './bookData';
+import { SPREADS_DATA, type BookSpread } from './bookData';
 
 const PAGE_WIDTH = 1024;
 const PAGE_HEIGHT = 1440;
 
 // Preloaded HTML images cache for canvas rendering
-const imageCache: { [url: string]: HTMLImageElement } = {};
+const imageCache: Record<string, HTMLImageElement | undefined> = {};
+const pendingPromises: Record<string, Promise<HTMLImageElement> | undefined> = {};
 
-function getImage(url: string): HTMLImageElement | null {
-  if (!url) return null;
-  if (!imageCache[url]) {
+export function preloadImage(url: string): Promise<HTMLImageElement> {
+  if (!url) return Promise.reject(new Error('No URL provided'));
+  const existing = imageCache[url];
+  if (existing && existing.complete && existing.naturalWidth > 0) {
+    return Promise.resolve(existing);
+  }
+  const pending = pendingPromises[url];
+  if (pending) {
+    return pending;
+  }
+
+  const promise = new Promise<HTMLImageElement>((resolve) => {
     const img = new Image();
+    img.crossOrigin = 'anonymous';
+    img.onload = () => {
+      imageCache[url] = img;
+      resolve(img);
+    };
+    img.onerror = () => {
+      resolve(img);
+    };
     img.src = url;
     imageCache[url] = img;
+  });
+
+  pendingPromises[url] = promise;
+  return promise;
+}
+
+export function preloadAllSpreadImages(): Promise<HTMLImageElement[]> {
+  const urls = SPREADS_DATA.map((s) => s.leftPage.imageUrl).filter(Boolean);
+  return Promise.all(urls.map((url) => preloadImage(url)));
+}
+
+export function getImage(url: string): HTMLImageElement | null {
+  if (!url) return null;
+  const cached = imageCache[url];
+  if (cached && cached.complete && cached.naturalWidth > 0) {
+    return cached;
   }
-  return imageCache[url].complete ? imageCache[url] : null;
+  if (!cached) {
+    preloadImage(url);
+  }
+  return null;
 }
 
 function drawParchmentBackground(ctx: CanvasRenderingContext2D, isLeftPage: boolean) {
@@ -88,12 +125,34 @@ export function renderLeftPageCanvas(spread: BookSpread): string {
   const boxH = 680;
 
   const loadedImg = getImage(spread.leftPage.imageUrl);
-  if (loadedImg) {
-    ctx.drawImage(loadedImg, boxX, boxY, boxW, boxH);
+  if (loadedImg && loadedImg.naturalWidth > 0) {
+    // Preserve aspect ratio with cover center crop
+    const imgAspect = loadedImg.naturalWidth / loadedImg.naturalHeight;
+    const boxAspect = boxW / boxH;
+    let sW = loadedImg.naturalWidth;
+    let sH = loadedImg.naturalHeight;
+    let sX = 0;
+    let sY = 0;
+
+    if (imgAspect > boxAspect) {
+      sW = loadedImg.naturalHeight * boxAspect;
+      sX = (loadedImg.naturalWidth - sW) / 2;
+    } else {
+      sH = loadedImg.naturalWidth / boxAspect;
+      sY = (loadedImg.naturalHeight - sH) / 2;
+    }
+
+    ctx.save();
+    ctx.beginPath();
+    ctx.rect(boxX, boxY, boxW, boxH);
+    ctx.clip();
+    ctx.drawImage(loadedImg, sX, sY, sW, sH, boxX, boxY, boxW, boxH);
+    ctx.restore();
+
     // Subtle vignette overlay on photo
-    const vig = ctx.createLinearGradient(boxX, boxY + boxH - 200, boxX, boxY + boxH);
+    const vig = ctx.createLinearGradient(boxX, boxY + boxH - 220, boxX, boxY + boxH);
     vig.addColorStop(0, 'rgba(17, 10, 5, 0)');
-    vig.addColorStop(1, 'rgba(17, 10, 5, 0.85)');
+    vig.addColorStop(1, 'rgba(17, 10, 5, 0.88)');
     ctx.fillStyle = vig;
     ctx.fillRect(boxX, boxY, boxW, boxH);
   } else {

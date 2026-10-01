@@ -3,7 +3,7 @@ import { Canvas, useThree, useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import { PhysicalPageTurnBook } from '../three/PhysicalPageTurnBook';
 import { SPREADS_DATA } from '../../lib/bookData';
-import { renderLeftPageCanvas, renderRightPageCanvas } from '../../lib/pageCanvasRenderer';
+import { renderLeftPageCanvas, renderRightPageCanvas, preloadAllSpreadImages } from '../../lib/pageCanvasRenderer';
 import { soundEngine } from '../../lib/soundEngine';
 import { Sparkles, ChevronRight, ChevronLeft } from 'lucide-react';
 
@@ -51,25 +51,41 @@ export const BookSpreadViewer: React.FC = () => {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  // Generate 2K textures for all spreads on mount
+  // Generate 2K textures for all spreads on mount with asynchronous image preloader
   useEffect(() => {
+    let isMounted = true;
     const loader = new THREE.TextureLoader();
-    const textures = SPREADS_DATA.map((spread) => {
-      const leftDataUrl = renderLeftPageCanvas(spread);
-      const rightDataUrl = renderRightPageCanvas(spread);
 
-      const leftTex = loader.load(leftDataUrl);
-      const rightTex = loader.load(rightDataUrl);
+    const generateTextures = () => {
+      return SPREADS_DATA.map((spread) => {
+        const leftDataUrl = renderLeftPageCanvas(spread);
+        const rightDataUrl = renderRightPageCanvas(spread);
 
-      leftTex.generateMipmaps = true;
-      leftTex.minFilter = THREE.LinearMipmapLinearFilter;
-      rightTex.generateMipmaps = true;
-      rightTex.minFilter = THREE.LinearMipmapLinearFilter;
+        const leftTex = loader.load(leftDataUrl);
+        const rightTex = loader.load(rightDataUrl);
 
-      return { left: leftTex, right: rightTex };
+        leftTex.generateMipmaps = true;
+        leftTex.minFilter = THREE.LinearMipmapLinearFilter;
+        rightTex.generateMipmaps = true;
+        rightTex.minFilter = THREE.LinearMipmapLinearFilter;
+
+        return { left: leftTex, right: rightTex };
+      });
+    };
+
+    // 1. Initial fast synchronous generation
+    setSpreadTextures(generateTextures());
+
+    // 2. Preload all spread images, then immediately re-generate textures with authentic images!
+    preloadAllSpreadImages().then(() => {
+      if (isMounted) {
+        setSpreadTextures(generateTextures());
+      }
     });
 
-    setSpreadTextures(textures);
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   // Track scroll inside the dedicated physical page turn track with rAF throttling
@@ -144,7 +160,7 @@ export const BookSpreadViewer: React.FC = () => {
         width: '100%',
         maxWidth: '100%',
         overflow: 'hidden',
-        height: isMobile ? '260vh' : '350vh',
+        height: isMobile ? '180vh' : '350vh',
         backgroundColor: '#090806'
       }}
       onTouchStart={handleTouchStart}
@@ -162,7 +178,9 @@ export const BookSpreadViewer: React.FC = () => {
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'space-between',
-          padding: 'max(14px, env(safe-area-inset-top, 14px)) 16px max(14px, env(safe-area-inset-bottom, 14px)) 16px',
+          padding: isMobile
+            ? 'max(6px, env(safe-area-inset-top, 6px)) 8px max(8px, env(safe-area-inset-bottom, 8px)) 8px'
+            : 'max(14px, env(safe-area-inset-top, 14px)) 16px max(14px, env(safe-area-inset-bottom, 14px)) 16px',
           boxSizing: 'border-box',
           overflow: 'hidden'
         }}
@@ -175,7 +193,7 @@ export const BookSpreadViewer: React.FC = () => {
             textAlign: 'center',
             zIndex: 30,
             pointerEvents: 'none',
-            padding: isMobile ? '10px 14px' : '14px 28px',
+            padding: isMobile ? '6px 12px' : '14px 28px',
             borderRadius: '12px',
             backgroundColor: '#15120F',
             backgroundImage: 'linear-gradient(180deg, rgba(33, 26, 20, 0.96) 0%, rgba(17, 14, 11, 0.98) 100%)',
@@ -189,16 +207,16 @@ export const BookSpreadViewer: React.FC = () => {
               display: 'inline-flex',
               alignItems: 'center',
               gap: '6px',
-              padding: '3px 10px',
+              padding: '2px 8px',
               borderRadius: '4px',
               border: '1px solid rgba(201, 164, 92, 0.3)',
               backgroundColor: 'rgba(201, 164, 92, 0.08)',
               color: '#C9A45C',
-              fontSize: isMobile ? '9px' : '10px',
+              fontSize: isMobile ? '8.5px' : '10px',
               fontFamily: '"Cinzel", serif',
               textTransform: 'uppercase',
               letterSpacing: '0.18em',
-              marginBottom: '4px',
+              marginBottom: '2px',
               fontWeight: 600
             }}
           >
@@ -209,11 +227,11 @@ export const BookSpreadViewer: React.FC = () => {
           <h2
             style={{
               fontFamily: '"Cormorant Garamond", Georgia, serif',
-              fontSize: isMobile ? 'clamp(1.2rem, 5vw, 1.8rem)' : 'clamp(1.5rem, 2.6vw, 2.2rem)',
+              fontSize: isMobile ? 'clamp(1.15rem, 4.5vw, 1.6rem)' : 'clamp(1.5rem, 2.6vw, 2.2rem)',
               fontWeight: 600,
               color: '#F2E7D0',
               lineHeight: 1.15,
-              margin: '0 0 3px 0',
+              margin: '0 0 2px 0',
               textShadow: '0 2px 12px rgba(0, 0, 0, 0.95)'
             }}
           >
@@ -223,11 +241,11 @@ export const BookSpreadViewer: React.FC = () => {
           <p
             style={{
               fontFamily: '"Cormorant Garamond", Georgia, serif',
-              fontSize: isMobile ? '13px' : '16px',
+              fontSize: isMobile ? '12px' : '16px',
               color: '#D6C29C',
               fontStyle: 'italic',
               margin: 0,
-              lineHeight: 1.3
+              lineHeight: 1.25
             }}
           >
             {isMobile ? 'Swipe left / right or scroll down to turn the sacred folios.' : 'Scroll down smoothly to fold the parchment across the spine and enter the next kshetra.'}

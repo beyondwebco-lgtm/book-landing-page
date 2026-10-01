@@ -10,27 +10,27 @@ export const FinalCTA: React.FC = () => {
   };
 
   return (
-    <section className="relative py-20 sm:py-32 px-4 sm:px-8 bg-gradient-to-b from-[#0A0806] via-[#15120F] to-[#0A0806] text-warm-ivory text-center overflow-hidden w-full max-w-full">
+    <section className="relative py-12 sm:py-32 px-4 sm:px-8 bg-gradient-to-b from-[#0A0806] via-[#15120F] to-[#0A0806] text-warm-ivory text-center overflow-hidden w-full max-w-full">
       {/* Background Radiance Glow (Diya Amber Light Pool) */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[320px] sm:w-[520px] h-[320px] sm:h-[520px] bg-[#E5A83B]/10 blur-[100px] sm:blur-[140px] rounded-full pointer-events-none" />
 
       <div className="relative z-10 max-w-4xl mx-auto">
-        <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-md border border-antique-gold/30 bg-[#211A14]/80 text-antique-gold text-[10px] uppercase font-cinzel tracking-[0.14em] sm:tracking-[0.2em] font-semibold mb-4 sm:mb-6 shadow-md max-w-full">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-md border border-antique-gold/30 bg-[#211A14]/80 text-antique-gold text-[10px] uppercase font-cinzel tracking-[0.14em] sm:tracking-[0.2em] font-semibold mb-3 sm:mb-6 shadow-md max-w-full">
           <Sparkles className="w-3 h-3 text-antique-gold shrink-0" />
           <span className="truncate">The Sanctum Sanctorum • Mandapa VI</span>
         </div>
 
-        <h2 className="font-garamond text-3xl sm:text-6xl font-semibold tracking-tight text-warm-ivory mb-4 sm:mb-5 leading-tight">
+        <h2 className="font-garamond text-3xl sm:text-6xl font-semibold tracking-tight text-warm-ivory mb-3 sm:mb-5 leading-tight">
           The Journey Begins<br />
           <span className="text-antique-gold italic">with a single page.</span>
         </h2>
 
-        <p className="font-garamond text-base sm:text-2xl text-aged-parchment italic max-w-2xl mx-auto mb-8 sm:mb-10 leading-relaxed">
+        <p className="font-garamond text-base sm:text-2xl text-aged-parchment italic max-w-2xl mx-auto mb-6 sm:mb-10 leading-relaxed">
           “Keep the timeless wisdom, mantras, and sanctum routes of India’s most sacred kshetras in your hands.”
         </p>
 
         {/* Primary and Secondary CTA Buttons */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-3.5 sm:gap-4 mb-10 sm:mb-14">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-3.5 sm:gap-4 mb-6 sm:mb-14">
           <a
             href={BOOK_METADATA.amazonUrl}
             target="_blank"

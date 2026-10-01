@@ -6,6 +6,7 @@ import { RealisticBook } from './RealisticBook';
 import { TempleEnvironment } from './TempleEnvironment';
 import { TempleParticles } from './TempleParticles';
 import { createBookCoverTexture, createPageSpreadTexture } from '../../lib/textureGenerator';
+import { preloadAllSpreadImages } from '../../lib/pageCanvasRenderer';
 import { soundEngine } from '../../lib/soundEngine';
 import { Volume2, VolumeX, ChevronDown } from 'lucide-react';
 import { BOOK_METADATA } from '../../lib/bookData';
@@ -67,25 +68,40 @@ export const BookHeroExperience: React.FC = () => {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  // Generate procedural textures once
+  // Generate procedural textures with asynchronous image preloader
   const [coverTexture, setCoverTexture] = useState<THREE.Texture | null>(null);
   const [spreadTextures, setSpreadTextures] = useState<Array<{ left: THREE.Texture; right: THREE.Texture }>>([]);
 
   useEffect(() => {
+    let isMounted = true;
     const loader = new THREE.TextureLoader();
     const coverDataUrl = createBookCoverTexture();
     const loadedCover = loader.load(coverDataUrl);
     setCoverTexture(loadedCover);
 
-    const spreads: Array<{ left: THREE.Texture; right: THREE.Texture }> = [];
-    for (let i = 0; i < 4; i++) {
-      const { left, right } = createPageSpreadTexture(i);
-      spreads.push({
-        left: loader.load(left),
-        right: loader.load(right)
-      });
-    }
-    setSpreadTextures(spreads);
+    const generateSpreads = () => {
+      const spreads: Array<{ left: THREE.Texture; right: THREE.Texture }> = [];
+      for (let i = 0; i < 4; i++) {
+        const { left, right } = createPageSpreadTexture(i);
+        spreads.push({
+          left: loader.load(left),
+          right: loader.load(right)
+        });
+      }
+      return spreads;
+    };
+
+    setSpreadTextures(generateSpreads());
+
+    preloadAllSpreadImages().then(() => {
+      if (isMounted) {
+        setSpreadTextures(generateSpreads());
+      }
+    });
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   // Track scroll within the hero pin track with requestAnimationFrame
@@ -138,7 +154,7 @@ export const BookHeroExperience: React.FC = () => {
         width: '100%',
         maxWidth: '100%',
         overflow: 'hidden',
-        height: isMobile ? '240vh' : '280vh',
+        height: isMobile ? '170vh' : '280vh',
         backgroundColor: '#090806'
       }}
     >
@@ -324,15 +340,15 @@ export const BookHeroExperience: React.FC = () => {
               <div
                 style={{
                   background: 'radial-gradient(ellipse at center, rgba(10, 8, 6, 0.92) 0%, rgba(10, 8, 6, 0.5) 75%, transparent 100%)',
-                  padding: isMobile ? '16px 14px' : '24px 20px',
+                  padding: isMobile ? '12px 12px' : '24px 20px',
                   borderRadius: '16px'
                 }}
               >
-                <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', marginBottom: isMobile ? '8px' : '14px' }}>
+                <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', marginBottom: isMobile ? '6px' : '14px' }}>
                   <span
                     style={{
                       fontFamily: '"Cinzel", serif',
-                      fontSize: isMobile ? '9px' : '10px',
+                      fontSize: isMobile ? '8.5px' : '10px',
                       letterSpacing: '0.22em',
                       textTransform: 'uppercase',
                       color: '#C9A45C',
@@ -346,11 +362,11 @@ export const BookHeroExperience: React.FC = () => {
                 <h1
                   style={{
                     fontFamily: '"Cormorant Garamond", Georgia, serif',
-                    fontSize: isMobile ? 'clamp(2.1rem, 7vw, 2.9rem)' : 'clamp(2.8rem, 6vw, 4.8rem)',
+                    fontSize: isMobile ? 'clamp(2rem, 6.5vw, 2.7rem)' : 'clamp(2.8rem, 6vw, 4.8rem)',
                     fontWeight: 700,
                     lineHeight: 1.05,
                     color: '#F2E7D0',
-                    margin: '0 0 6px 0',
+                    margin: '0 0 4px 0',
                     textShadow: '0 4px 28px rgba(0, 0, 0, 0.95)'
                   }}
                 >
@@ -360,10 +376,10 @@ export const BookHeroExperience: React.FC = () => {
                 <p
                   style={{
                     fontFamily: '"Cormorant Garamond", Georgia, serif',
-                    fontSize: isMobile ? '1.15rem' : 'clamp(1.25rem, 2.5vw, 1.6rem)',
+                    fontSize: isMobile ? '1.1rem' : 'clamp(1.25rem, 2.5vw, 1.6rem)',
                     fontWeight: 500,
                     color: '#D6C29C',
-                    margin: '0 0 12px 0',
+                    margin: isMobile ? '0 0 8px 0' : '0 0 12px 0',
                     lineHeight: 1.3
                   }}
                 >
@@ -373,26 +389,26 @@ export const BookHeroExperience: React.FC = () => {
                 <p
                   style={{
                     fontFamily: '"Cormorant Garamond", Georgia, serif',
-                    fontSize: isMobile ? '14px' : '18px',
+                    fontSize: isMobile ? '13px' : '18px',
                     color: '#F2E7D0',
                     fontStyle: 'italic',
                     maxWidth: '540px',
-                    margin: isMobile ? '0 auto 16px auto' : '0 auto 28px auto',
-                    lineHeight: 1.5,
+                    margin: isMobile ? '0 auto 12px auto' : '0 auto 28px auto',
+                    lineHeight: 1.45,
                     opacity: 0.92
                   }}
                 >
                   “Open the book. Follow the sacred path. Discover the timeless kshetras within.”
                 </p>
 
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: isMobile ? '10px' : '14px', flexWrap: 'wrap' }}>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: isMobile ? '8px' : '14px', flexWrap: 'wrap' }}>
                   <button
                     onClick={() => {
                       window.scrollTo({ top: window.innerHeight * 0.8, behavior: 'smooth' });
                       soundEngine.playPageTurn();
                     }}
                     style={{
-                      padding: isMobile ? '9px 18px' : '11px 24px',
+                      padding: isMobile ? '8px 16px' : '11px 24px',
                       borderRadius: '6px',
                       border: '1px solid rgba(201, 164, 92, 0.45)',
                       backgroundColor: 'rgba(21, 18, 15, 0.85)',
@@ -419,7 +435,7 @@ export const BookHeroExperience: React.FC = () => {
                     rel="noopener noreferrer"
                     onClick={() => soundEngine.playTempleBell()}
                     style={{
-                      padding: isMobile ? '9px 20px' : '11px 26px',
+                      padding: isMobile ? '8px 18px' : '11px 26px',
                       borderRadius: '6px',
                       backgroundColor: '#C9A45C',
                       backgroundImage: 'linear-gradient(180deg, #D4AF37 0%, #B89047 100%)',
@@ -445,7 +461,7 @@ export const BookHeroExperience: React.FC = () => {
                 style={{
                   backgroundColor: 'rgba(21, 18, 15, 0.94)',
                   backgroundImage: 'linear-gradient(180deg, rgba(33, 26, 20, 0.96) 0%, rgba(17, 14, 11, 0.98) 100%)',
-                  padding: isMobile ? '14px 16px' : '22px 30px',
+                  padding: isMobile ? '10px 14px' : '22px 30px',
                   borderRadius: '12px',
                   border: '1px solid rgba(201, 164, 92, 0.32)',
                   backdropFilter: 'blur(16px)',
@@ -469,10 +485,10 @@ export const BookHeroExperience: React.FC = () => {
                 <h2
                   style={{
                     fontFamily: '"Cormorant Garamond", Georgia, serif',
-                    fontSize: isMobile ? '20px' : '28px',
+                    fontSize: isMobile ? '18px' : '28px',
                     fontWeight: 600,
                     color: '#F2E7D0',
-                    margin: '0 0 6px 0',
+                    margin: '0 0 4px 0',
                     lineHeight: 1.2
                   }}
                 >
@@ -481,11 +497,11 @@ export const BookHeroExperience: React.FC = () => {
                 <p
                   style={{
                     fontFamily: '"Cormorant Garamond", Georgia, serif',
-                    fontSize: isMobile ? '14px' : '18px',
+                    fontSize: isMobile ? '13px' : '18px',
                     color: '#D6C29C',
                     fontStyle: 'italic',
                     margin: 0,
-                    lineHeight: 1.4
+                    lineHeight: 1.35
                   }}
                 >
                   Scroll continuously to turn through the northern, himalayan, southern and coastal pilgrimage kshetras.
@@ -496,7 +512,7 @@ export const BookHeroExperience: React.FC = () => {
                 style={{
                   backgroundColor: 'rgba(21, 18, 15, 0.94)',
                   backgroundImage: 'linear-gradient(180deg, rgba(33, 26, 20, 0.96) 0%, rgba(17, 14, 11, 0.98) 100%)',
-                  padding: isMobile ? '14px 16px' : '22px 30px',
+                  padding: isMobile ? '10px 14px' : '22px 30px',
                   borderRadius: '12px',
                   border: '1px solid rgba(201, 164, 92, 0.32)',
                   backdropFilter: 'blur(16px)',

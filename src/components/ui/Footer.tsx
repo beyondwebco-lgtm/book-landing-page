@@ -9,8 +9,8 @@ export const Footer: React.FC = () => {
 
   return (
     <footer
-      className="bg-[#0A0806] border-t border-antique-gold/20 py-10 sm:py-12 px-4 sm:px-12 text-warm-ivory"
-      style={{ paddingBottom: 'max(36px, calc(env(safe-area-inset-bottom, 0px) + 24px))' }}
+      className="bg-[#0A0806] border-t border-antique-gold/20 pt-8 sm:pt-12 px-4 sm:px-12 text-warm-ivory"
+      style={{ paddingBottom: 'max(24px, calc(env(safe-area-inset-bottom, 0px) + 20px))' }}
     >
       <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
         <div className="text-center md:text-left">

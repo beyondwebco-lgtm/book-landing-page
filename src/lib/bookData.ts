@@ -17,6 +17,7 @@ export interface TempleSpot {
   pageNumber?: number;
   tags: string[];
   imageUrl: string;
+  thumbUrl?: string;
 }
 
 export interface BookSpread {
@@ -67,7 +68,7 @@ export const SPREADS_DATA: BookSpread[] = [
       type: "temple-illustration",
       imageLabel: "Manikarnika & Golden Temple Sanctum",
       accentQuote: "“Where light touches the soul before it touches the earth.”",
-      imageUrl: "/images/temples/kashi.jpg"
+      imageUrl: "/images/temples/kashi.webp"
     },
     rightPage: {
       heading: "The City Older than Time Itself",
@@ -90,7 +91,7 @@ export const SPREADS_DATA: BookSpread[] = [
       type: "sacred-map",
       imageLabel: "Mandakini Valley & Garhwal Alaknanda Route",
       accentQuote: "“Ascending the path where mountains breathe devotion.”",
-      imageUrl: "/images/temples/kedarnath.jpg"
+      imageUrl: "/images/temples/kedarnath.webp"
     },
     rightPage: {
       heading: "The Himalayan Pilgrimage Trail",
@@ -113,7 +114,7 @@ export const SPREADS_DATA: BookSpread[] = [
       type: "manuscript-excerpt",
       imageLabel: "The 1000-Pillared Corridors & Sacred Theerthams",
       accentQuote: "“Carved in granite, consecrated for eternity.”",
-      imageUrl: "/images/temples/meenakshi.jpg"
+      imageUrl: "/images/temples/meenakshi.webp"
     },
     rightPage: {
       heading: "The Sanctified 22 Theerthams & Divine Mother",
@@ -136,7 +137,7 @@ export const SPREADS_DATA: BookSpread[] = [
       type: "temple-illustration",
       imageLabel: "Golden Ananda Nilayam & The Great Chola Vimana",
       accentQuote: "“Where devotion turns every breath into pure gold.”",
-      imageUrl: "/images/temples/tirupati.jpg"
+      imageUrl: "/images/temples/tirupati.webp"
     },
     rightPage: {
       heading: "Sanctuaries of Immense Grace & Granite",
@@ -159,7 +160,7 @@ export const SPREADS_DATA: BookSpread[] = [
       type: "temple-illustration",
       imageLabel: "The Arabian Sea Confluence & Somnath Jyotirlinga",
       accentQuote: "“Where prayer meets the roar of infinite waves.”",
-      imageUrl: "/images/temples/somnath.jpg"
+      imageUrl: "/images/temples/somnath.webp"
     },
     rightPage: {
       heading: "The Resilient Pillar of Faith",
@@ -186,7 +187,8 @@ export const TEMPLE_MAP_SPOTS: TempleSpot[] = [
     verseSnippet: "सर्वमङ्गल माङ्गल्ये शिवे सर्वार्थ साधिके",
     pageNumber: 144,
     tags: ["South Indian", "Shakti Peetha", "Dravidian Gopurams"],
-    imageUrl: "/images/temples/meenakshi.jpg"
+    imageUrl: "/images/temples/meenakshi.webp",
+    thumbUrl: "/images/temples/meenakshi-thumb.webp"
   },
   {
     id: "tirupati",
@@ -200,7 +202,8 @@ export const TEMPLE_MAP_SPOTS: TempleSpot[] = [
     verseSnippet: "वेङ्कटाद्रि समं स्थानं ब्रह्माण्डे नास्ति किञ्चन",
     pageNumber: 188,
     tags: ["South Indian", "Divya Desam", "Vaikuntha Kshetras"],
-    imageUrl: "/images/temples/tirupati.jpg"
+    imageUrl: "/images/temples/tirupati.webp",
+    thumbUrl: "/images/temples/tirupati-thumb.webp"
   },
   {
     id: "brihadeeswara",
@@ -214,7 +217,8 @@ export const TEMPLE_MAP_SPOTS: TempleSpot[] = [
     verseSnippet: "नमो हिरण्यबाहवे हिरण्यवर्णाय",
     pageNumber: 196,
     tags: ["South Indian", "UNESCO Heritage", "Dravidian Gopurams"],
-    imageUrl: "/images/temples/brihadeeswara.jpg"
+    imageUrl: "/images/temples/brihadeeswara.webp",
+    thumbUrl: "/images/temples/brihadeeswara-thumb.webp"
   },
   {
     id: "padmanabhaswamy",
@@ -228,7 +232,8 @@ export const TEMPLE_MAP_SPOTS: TempleSpot[] = [
     verseSnippet: "शान्ताकारं भुजगशयनं पद्मनाभं सुरेशम्",
     pageNumber: 204,
     tags: ["South Indian", "Divya Desam", "Kerala Kshetras"],
-    imageUrl: "/images/temples/padmanabhaswamy.jpg"
+    imageUrl: "/images/temples/padmanabhaswamy.webp",
+    thumbUrl: "/images/temples/padmanabhaswamy-thumb.webp"
   },
   {
     id: "srirangam",
@@ -242,7 +247,8 @@ export const TEMPLE_MAP_SPOTS: TempleSpot[] = [
     verseSnippet: "कावेरी विरजा सेयं वैकुण्ठं रङ्गमन्दिरम्",
     pageNumber: 210,
     tags: ["South Indian", "Divya Desam", "Dravidian Gopurams"],
-    imageUrl: "/images/temples/srirangam.jpg"
+    imageUrl: "/images/temples/srirangam.webp",
+    thumbUrl: "/images/temples/srirangam-thumb.webp"
   },
   {
     id: "murudeshwar",
@@ -256,7 +262,8 @@ export const TEMPLE_MAP_SPOTS: TempleSpot[] = [
     verseSnippet: "त्र्यम्बकं यजामहे सुगन्धिं पुष्टिवर्धनम्",
     pageNumber: 214,
     tags: ["South Indian", "Coastal Kshetras", "Karnataka Kshetras"],
-    imageUrl: "/images/temples/murudeshwar.jpg"
+    imageUrl: "/images/temples/murudeshwar.webp",
+    thumbUrl: "/images/temples/murudeshwar-thumb.webp"
   },
   {
     id: "rameswaram",
@@ -270,7 +277,8 @@ export const TEMPLE_MAP_SPOTS: TempleSpot[] = [
     verseSnippet: "सेतुबन्धे महातीर्थे",
     pageNumber: 144,
     tags: ["South Indian", "Jyotirlinga", "Chardham"],
-    imageUrl: "/images/temples/rameswaram.jpg"
+    imageUrl: "/images/temples/rameswaram.webp",
+    thumbUrl: "/images/temples/rameswaram-thumb.webp"
   },
   {
     id: "kashi",
@@ -284,7 +292,8 @@ export const TEMPLE_MAP_SPOTS: TempleSpot[] = [
     verseSnippet: "सत्यं शिवं सुन्दरम्",
     pageNumber: 12,
     tags: ["Jyotirlinga", "Ganga Ghats", "Moksha Puri"],
-    imageUrl: "/images/temples/kashi.jpg"
+    imageUrl: "/images/temples/kashi.webp",
+    thumbUrl: "/images/temples/kashi-thumb.webp"
   },
   {
     id: "kedarnath",
@@ -298,7 +307,8 @@ export const TEMPLE_MAP_SPOTS: TempleSpot[] = [
     verseSnippet: "हिमवत्सुत समायुक्तं",
     pageNumber: 68,
     tags: ["Chardham", "Panch Kedar", "High Altitude"],
-    imageUrl: "/images/temples/kedarnath.jpg"
+    imageUrl: "/images/temples/kedarnath.webp",
+    thumbUrl: "/images/temples/kedarnath-thumb.webp"
   },
   {
     id: "badrinath",
@@ -312,7 +322,8 @@ export const TEMPLE_MAP_SPOTS: TempleSpot[] = [
     verseSnippet: "नमो नारायणाय",
     pageNumber: 74,
     tags: ["Chardham", "Divya Desam", "Garhwal"],
-    imageUrl: "/images/temples/kedarnath.jpg"
+    imageUrl: "/images/temples/kedarnath.webp",
+    thumbUrl: "/images/temples/kedarnath-thumb.webp"
   },
   {
     id: "somnath",
@@ -326,7 +337,8 @@ export const TEMPLE_MAP_SPOTS: TempleSpot[] = [
     verseSnippet: "प्रभासतीर्थे सोमेशम्",
     pageNumber: 218,
     tags: ["Adya Jyotirlinga", "Prabhas Patan", "Ocean Shrine"],
-    imageUrl: "/images/temples/somnath.jpg"
+    imageUrl: "/images/temples/somnath.webp",
+    thumbUrl: "/images/temples/somnath-thumb.webp"
   },
   {
     id: "dwarka",
@@ -340,6 +352,7 @@ export const TEMPLE_MAP_SPOTS: TempleSpot[] = [
     verseSnippet: "द्वारका वासिने नमः",
     pageNumber: 232,
     tags: ["Chardham", "Mokshapuri", "Gomti Sangam"],
-    imageUrl: "/images/temples/somnath.jpg"
+    imageUrl: "/images/temples/somnath.webp",
+    thumbUrl: "/images/temples/somnath-thumb.webp"
   }
 ];
